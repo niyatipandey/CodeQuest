@@ -1,67 +1,51 @@
 # CodeQuest 🚀
 ### Track • Learn • Grow
 
-A personal DSA performance dashboard that helps you track learning, identify weak areas, and build consistency.
+A personal DSA performance dashboard that goes beyond problem counts — it tracks *how well* you're improving, where you're stuck, and what to focus on next.
 
-> Built because most DSA tools track **how many** questions you solved — not **how well** you're improving.
+> Most DSA trackers count solved problems. CodeQuest measures improvement.
 
-## 🌐 Live Demo
-[CodeQuest Live](https://codequest-zeta-sable.vercel.app/)
+🔗 **[Try CodeQuest Live](https://codequest-git-main-niyatipm25-7681s-projects.vercel.app/)**
 
-## 📸 Screenshots
+---
 
-> Add screenshots here after deployment
+## ✨ What Makes CodeQuest Different
 
-## ✨ Features
+The **Insights Engine** — a coaching layer built on 8 detection algorithms that analyzes your solving patterns and gives you honest feedback:
 
-### 📊 Dashboard
-- Total solved with Easy / Medium / Hard breakdown
-- Daily goal progress with visual progress bar
-- Current streak tracking
-- Current topic focus
-- Recent questions at a glance
+- Are you avoiding hard questions?
+- Are you relying too much on hints?
+- Which topics are you neglecting?
+- Is your consistency streak actually consistent?
 
-### ➕ Add Question
-- Log every DSA problem you solve
-- Track title, topic, difficulty, platform
-- Record time taken and help level
-- Add personal notes and patterns
+Most trackers just count. CodeQuest coaches.
 
-### 📋 Questions
-- Full history of all solved questions
-- Difficulty color coding
-- Help level and time tracking
+---
 
-### 📈 Analytics
-- Solve rate visualization
-- Help breakdown donut chart
-- Average time per question
-- Topic distribution progress bars
+## 🗂️ Features
 
-### 🧠 Insights Engine
-The most unique feature — acts like a personal coach:
-- Detects if you're avoiding hard questions
-- Flags topics you're neglecting
-- Tracks consistency streak
-- Warns about help dependency
-- Suggests topics to move forward on
+| Feature | Description |
+|---|---|
+| 📊 Dashboard | Easy/Medium/Hard breakdown, streak, daily goal progress |
+| ➕ Log Question | Track title, topic, difficulty, platform, time taken, help level |
+| 📋 History | Full question log with difficulty color coding |
+| 📈 Analytics | Solve rate, help breakdown donut, topic distribution |
+| 🧠 Insights Engine | 8 coaching algorithms — your personal DSA coach |
+| 🎯 Goals | Daily targets, skill tracking, topic completion |
+| 📓 Notes Vault | Patterns and mistakes per question, all in one place |
 
-### 🎯 Goals
-- Set daily question targets
-- Track current and target skills
-- Mark completed DSA topics
-
-### 📓 Notes Vault
-- All your question notes in one place
-- Pattern and mistake tracking per question
+---
 
 ## 🛠️ Tech Stack
 
-- **React** — UI framework
-- **Tailwind CSS** — Styling
-- **Recharts** — Analytics charts
-- **localStorage** — Data persistence
-- **Vite** — Build tool
+- **React** — component-based UI
+- **Tailwind CSS** — styling
+- **Recharts** — analytics charts (donut, bar, progress)
+- **localStorage** — client-side data persistence
+- **Vite** — build tool
+- **Vercel** — deployment
+
+---
 
 ## 🚀 Getting Started
 
@@ -71,16 +55,27 @@ cd CodeQuest
 npm install
 npm run dev
 ```
+Then open the local URL shown in your terminal.
+---
 
-## 🗺️ Roadmap
+## 🗺️ What's Next
+
+Currently working on taking CodeQuest from a personal tool to a multi-user platform:
 
 - [ ] Backend with Node.js + Express
 - [ ] User authentication
-- [ ] Cloud data sync
+- [ ] Cloud data sync (replace localStorage)
 - [ ] AI-powered insights
 - [ ] Mobile responsive design
 - [ ] Spaced repetition for reattempts
 
-## 👨‍💻 Author
+---
 
-Built by Niyati Pandey
+## 👩‍💻 Author
+
+Built by **Niyati Pandey**
+[GitHub](https://github.com/niyatipandey) · [LinkedIn](https://www.linkedin.com/in/niyati-pandey0605)
+
+---
+
+⭐ If you found this project interesting, consider giving it a star.
