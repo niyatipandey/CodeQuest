@@ -11,8 +11,8 @@ const Notes = ({questions}) => {
   }
   return (
     <div>
-      {notesQuestions.length === 0 && <p className='text-gray-500 text-center mt-20'>No notes yet. Add notes when solving questions!</p>}
       <h1 className='text-2xl font-bold text-white mb-6'>Notes Vault 📓</h1>
+      {notesQuestions.length === 0 && <p className='text-gray-500 text-center mt-20'>No notes yet. Add notes when solving questions!</p>}
       {notesQuestions.map((q)=>{
         return <div key={q.id} className='bg-gray-800 rounded-lg p-4 mb-3 flex justify-between'>
             <div>
