@@ -73,7 +73,7 @@ const Dashboard = ({questions,dailyGoal}) => {
           </div>
         </div>
       </div>
-      <div className=' bg-white col-span-2 bg-white border border-[#d1d0cd] rounded-xl p-5'>
+      <div className='col-span-2 bg-white border border-[#d1d0cd] rounded-xl p-5'>
         <p className='text-[#1D9E75] text-m font-bold'>Current Streak</p>
         <p className='text-[#EA580C] text-2xl font-bold mt-1'>🔥 <span className="'text-white text-3xl">{streak} </span>{streak === 1 ? "day" : "days"} Streak</p>
         {streak >= 7 && <p className='text-yellow-400 text-sm mt-1'>👑 Absolute consistency!</p>}
