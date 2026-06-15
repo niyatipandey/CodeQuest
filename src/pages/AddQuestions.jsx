@@ -45,8 +45,8 @@ const AddQuestions = ({addQuestion}) => {
 
   return (
     <div className='max-w-2xl mx-auto overflow-hidden'>
-      <h1 className='text-2xl font-bold text-white mb-6'>Add New Question</h1>
-      <input className='w-full bg-gray-800 text-white rounded-lg p-3 border border-gray-700 focus:outline-none mb-4'
+      <h1 className='text-2xl font-bold text-[#1C3D35] mb-6'>Add New Question</h1>
+      <input className=' hover:border-[#1D5B4F] w-full bg-[#d1f2e3]  text-gray-600 rounded-lg p-3 border border-[#7fb29a] focus:outline-none mb-4'
       type="text" 
       value = {formData.title}
       placeholder='Question Title...'
@@ -54,7 +54,7 @@ const AddQuestions = ({addQuestion}) => {
         setFormData({...formData,title : e.target.value})
       }
       }/>
-      <input className='w-full bg-gray-800 text-white rounded-lg p-3 border border-gray-700 focus:outline-none mb-4'
+      <input className=' hover:border-[#1D5B4F] w-full bg-[#d1f2e3] text-gray-600 rounded-lg p-3 border border-[#7fb29a] focus:outline-none mb-4'
       type="number" 
       value = {formData.timeTaken}
       placeholder='Time Taken'
@@ -63,7 +63,7 @@ const AddQuestions = ({addQuestion}) => {
       }
       }/>
       <div className='grid grid-cols-2 gap-4'>
-        <select className="w-full bg-gray-800 text-white rounded-lg p-3 border border-gray-700 focus:outline-none mb-4"
+        <select className="hover:border-[#1D5B4F] w-full bg-[#d1f2e3]  text-gray-600 rounded-lg p-3 border border-[#7fb29a] focus:outline-none mb-4"
         value={formData.difficulty}
         onChange={(e)=> setFormData({...formData, difficulty:e.target.value})}>
           <option value="">Select Difficulty</option>
@@ -71,7 +71,7 @@ const AddQuestions = ({addQuestion}) => {
           <option value="Medium">Medium</option> 
           <option value="Hard">Hard</option>       
         </select>
-        <select className="w-full bg-gray-800 text-white rounded-lg p-3 border border-gray-700 focus:outline-none mb-4"
+        <select className="hover:border-[#1D5B4F] w-full bg-[#d1f2e3]  text-gray-600 rounded-lg p-3 border border-[#7fb29a] focus:outline-none mb-4"
       value={formData.topic}
       onChange={(e)=> setFormData({...formData, topic:e.target.value})}>
         <option value="">Select Topic</option>
@@ -92,7 +92,7 @@ const AddQuestions = ({addQuestion}) => {
       </select>
       </div>
       <div className='grid grid-cols-2 gap-4'>
-        <select className="w-full bg-gray-800 text-white rounded-lg p-3 border border-gray-700 focus:outline-none mb-4"
+        <select className="hover:border-[#1D5B4F] w-full bg-[#d1f2e3]  text-gray-600 rounded-lg p-3 border border-[#7fb29a] focus:outline-none mb-4"
         value={formData.platform}
         onChange={(e)=> setFormData({...formData, platform:e.target.value})}>
           <option value="">Select Platform</option>
@@ -100,7 +100,7 @@ const AddQuestions = ({addQuestion}) => {
           <option value="GFG">GFG</option> 
           <option value="Codeforces">Codeforces</option>       
         </select>
-        <select className="w-full bg-gray-800 text-white rounded-lg p-3 border border-gray-700 focus:outline-none mb-4"
+        <select className="hover:border-[#1D5B4F] w-full bg-[#d1f2e3]  text-gray-600 rounded-lg p-3 border border-[#7fb29a] focus:outline-none mb-4"
         value={formData.helpTaken}
         onChange={(e)=> setFormData({...formData, helpTaken:e.target.value})}>
           <option value="No Help">No Help</option>
@@ -108,14 +108,14 @@ const AddQuestions = ({addQuestion}) => {
           <option value="Watched Solution">Watched Solution</option>      
         </select>
       </div>
-      <select className="w-full bg-gray-800 text-white rounded-lg p-3 border border-gray-700 focus:outline-none mb-4"
+      <select className="hover:border-[#1D5B4F] w-full bg-[#d1f2e3]  text-gray-600 rounded-lg p-3 border border-[#7fb29a] focus:outline-none mb-4"
       value={formData.solved}
       onChange={(e)=> setFormData({...formData, solved:e.target.value})}>
         <option value="">Solved?</option>
         <option value="Yes">Yes</option>
         <option value="No">No</option>     
       </select>
-      <textarea className="w-full bg-gray-800 text-white rounded-lg p-3 border border-gray-700 focus:outline-none mb-4 h-32"
+      <textarea className="hover:border-[#1D5B4F] w-full bg-[#d1f2e3]  text-gray-600 rounded-lg p-3 border border-[#7fb29a] focus:outline-none mb-4 h-32"
       value={formData.notes}
       placeholder="Write your notes, patterns, mistakes..."
       onChange={(e)=>{
@@ -125,7 +125,7 @@ const AddQuestions = ({addQuestion}) => {
       {error && <div className='bg-red-500/10 border border-red-500 rounded-lg p-2 mb-2'>
        <p className='text-red-500 text-sm'>⚠️ {error}</p>
       </div>}
-      <button className='w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all cursor-pointer'
+      <button className='w-full bg-[#1C3D35] hover:bg-[#356d5f] text-white font-bold py-3 rounded-lg transition-all cursor-pointer'
       onClick={handleSubmit}>Submit</button>
     </div>
   )

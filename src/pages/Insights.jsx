@@ -76,25 +76,25 @@ const Insights = ({questions}) => {
   const helpInsight = watchedPercentage > 30 ? "Too many watched solutions" : "Good independence"
 
   const insightCards = [
-    {icon:"🔥", title: "Consistency" , message:consistencyInsight, color: "bg-[#182235]" },
-    {icon:"📅", title: "Today's Activity" , message: todayInsight, color: "bg-[#182235]" },
-    {icon:"📊", title: "Topic Coverage" , message: neglectedTopicInsight, color: "bg-[#182235]" },
-    {icon:"🎯", title: "Least Touched" , message: `Give more attention to: ${leastTouchedTopic || "N/A"}`, color: "bg-[#182235]" },
-    {icon:"⏱️", title: "Speed Analysis" , message: avgTimeInsight, color: "bg-[#182235]" },
-    {icon:"💀", title: "Difficulty Balance" , message: hardInsight, color: "bg-[#182235]" },
-    {icon:"📉", title: "Help Dependency" , message: helpInsight, color: "bg-[#182235]" },
-    comfortTopicInsight && { icon: "✅", title: "Topic Mastery", message: comfortTopicInsight, color: "bg-[#182235]" }
+    {icon:"🔥", title: "Consistency" , message:consistencyInsight, color: "bg-[#d1f2e3]" },
+    {icon:"📅", title: "Today's Activity" , message: todayInsight, color: "bg-[#d1f2e3]" },
+    {icon:"📊", title: "Topic Coverage" , message: neglectedTopicInsight, color: "bg-[#d1f2e3]" },
+    {icon:"🎯", title: "Least Touched" , message: `Give more attention to: ${leastTouchedTopic || "N/A"}`, color: "bg-[#d1f2e3]" },
+    {icon:"⏱️", title: "Speed Analysis" , message: avgTimeInsight, color: "bg-[#d1f2e3]" },
+    {icon:"💀", title: "Difficulty Balance" , message: hardInsight, color: "bg-[#d1f2e3]" },
+    {icon:"📉", title: "Help Dependency" , message: helpInsight, color: "bg-[#d1f2e3]" },
+    comfortTopicInsight && { icon: "✅", title: "Topic Mastery", message: comfortTopicInsight, color: "bg-[#d1f2e3]" }
   ].filter(Boolean)
 
 
   return (
     <div className='max-w-3xl mx-auto'>
-      <h1 className='text-2xl font-bold text-white mb-6'>🧠 Insights</h1>
+      <h1 className='text-2xl font-bold text-[#1C3D35] mb-6'>🧠 Insights</h1>
         <div className='grid grid-cols-2 gap-4'>
           {insightCards.map((card,index) =>(
-            <div key={index} className={ `hover:bg-[#202b42] rounded-lg p-5 border-l-4 ${card.color}`}>
-              <p className='text-gray-400 text-sm mb-1'>{card.icon} {card.title}</p>
-              <p className='text-white text-lg font-semibold'>{card.message}</p>
+            <div key={index} className={ `hover:bg-[#83c4a7] rounded-lg p-5 border-l-4 ${card.color}`}>
+              <p className='text-gray-700 text-sm font-bold mb-1'>{card.icon} {card.title}</p>
+              <p className='text-gray-500 text-lg font-semibold'>{card.message}</p>
               </div>
           ))}
         </div>

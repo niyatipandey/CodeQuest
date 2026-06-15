@@ -84,13 +84,13 @@ const App = () => {
   }, [questions])
 
   return (
-      <div className='h-screen flex bg-gray-950'>
-        <div className=' flex flex-col w-60 bg-gray-900  text-white p-4 '>
+      <div className='h-screen flex bg-[#F7F5F0]'>
+        <div className=' flex flex-col w-60 bg-[#1C3D35]  text-white p-4 '>
           <div className='text-xl mb-1 font-bold text-center'>CodeQuest🚀</div>
           <div className='text-lg mb-7 font-semi-bold text-center text-gray-300'>Track • Learn • Grow</div>
           <Sidebar setActivePage={setActivePage} activePage={activePage}/>
         </div>
-        <div className='flex-1 bg-gray-950 text-white p-6 overflow-y-auto'>
+        <div className='flex-1 bg-[#F7F5F0]text-white p-6 overflow-y-auto'>
           {activePage === "dashboard" && <Dashboard questions={questions} dailyGoal={dailyGoal}/>}
           {activePage ==="analytics" && <Analytics questions={questions}/>}
           {activePage === "goals" && <Goals dailyGoal={dailyGoal} setDailyGoal={setDailyGoal} currentSkill={currentSkill} setCurrentSkill={setCurrentSkill} targetSkill={targetSkill} setTargetSkill={setTargetSkill} completedSkills={completedSkills} setCompletedSkills={setCompletedSkills}/>}

@@ -37,18 +37,18 @@ const Analytics = ({questions}) => {
 
   return (
     <div className='grid grid-cols-2 gap-4'>
-      <div className='row-span-2 bg-gray-800 rounded-lg p-4'>
-        <p className='text-gray-400 text-sm mb-1'>Solved Rate</p>
-        <p className='text-white text-3xl font-bold mb-4'>{solveRate}%</p>
-        <div className='bg-gray-800 rounded-lg'>
-          <ResponsiveContainer width="100%" height={250}>
+      <div className='row-span-2 bg-[#EAF5F0] border border-[#C8D6D0] rounded-lg p-4'>
+        <p className='text-[#1D5B4F] text-m mb-1 font-semibold'>Solved Rate</p>
+        <p className='text-[#14804A] text-2xl font-bold mb-4'>{solveRate}%</p>
+        <div className='rounded-lg'>
+          <ResponsiveContainer width="100%" height={280}>
             <BarChart data={solveData} barSize={90} margin={{top: 5, right: 10, left: -20, bottom: 5}}>
               <XAxis dataKey="name" stroke='#9ca3af'/>
               <YAxis stroke='#9ca3af' stroke='transparent' tick={{fill: '#9ca3af'}}/>
               <Tooltip
-                contentStyle={{backgroundColor: '#1e293b', border: '1px solid #374151', borderRadius: '8px'}}
-                labelStyle={{color: 'white'}}
-                itemStyle={{color: 'white'}}
+                contentStyle={{backgroundColor: '#F7F5F0', border: '1px solid #C8D6D0', borderRadius: '12px'}}
+                labelStyle={{color: '#184C40'}}
+                itemStyle={{color: '#184C40'}}
                 formatter={(value) => [value, 'Count']}
               />
               <Bar dataKey="value" radius={[6,6,0,0]}>
@@ -61,9 +61,9 @@ const Analytics = ({questions}) => {
         </div>
       </div>
 
-      <div className='bg-gray-800 rounded-lg p-4 h-full'>
-        <p className='text-gray-400 text-sm mb-2'>Help Breakdown</p>
-        <div className='flex items-center'>
+      <div className='bg-[#EAF5F0] border border-[#C8D6D0] rounded-lg p-4 h-full'>
+        <p className='text-[#1D5B4F] text-m mb-2 font-semibold'>Help Breakdown</p>
+        <div className='flex items-center h-full'>
           <PieChart width={200} height={200}>
             <Pie data={helpData} cx={100} cy={100} innerRadius={55} outerRadius={80} dataKey="value">
               {helpData.map((entry, index) => (
@@ -76,24 +76,24 @@ const Analytics = ({questions}) => {
             {helpData.map((entry, index) => (
               <div key={index} className='flex items-center gap-2'>
                 <div className='w-3 h-3 rounded-full' style={{backgroundColor: COLORS[index]}}/>
-                <span className='text-gray-400 text-sm'>{entry.name}</span>
+                <span className='text-gray-700 text-sm'>{entry.name}</span>
               </div>
             ))}
           </div>
         </div>
     </div>
 
-      <div className='bg-gray-800 rounded-lg p-4'>
-        <p className='text-gray-400 text-sm'>Average Time</p>
-        <p text-white text-3xl font-bold mt-2>{avgTime} <span className='text-gray-400 text-lg'>mins</span></p>
-        <p className='text-gray-500 text-sm mt-2'>per question</p>
-        {avgTime > 0 && <p text-gray-600 text-xs mt-4>{avgTime < 15 ? "⚡ Solving fast" : avgTime < 30 ? "👍 Good pace" : "🐢 Taking your time"}</p>}
+      <div className='bg-[#EAF5F0] border border-[#C8D6D0] rounded-lg p-4'>
+        <p className='text-[#1D5B4F] text-m font-semibold'>Average Time</p>
+        <p className=' text-[#184C40] text-2xl font-bold mt-2'>{avgTime} <span className='text-gray-600 text-m font-semibold'>mins</span></p>
+        <p className='text-gray-600 text-sm mt-2'>per question</p>
+        {avgTime > 0 && <p className=' text-gray-600 font-bold text-sm mt-4'>{avgTime < 15 ? "⚡ Solving fast" : avgTime < 30 ? "👍 Good pace" : "🐢 Taking your time"}</p>}
       </div>
 
-      <div className='col-span-2 bg-gray-800 rounded-lg p-4'>
-        <p className='text-gray-400 text-sm mb-4'>Topic Distribution</p>
+      <div className='col-span-2 bg-[#EAF5F0] border border-[#C8D6D0] rounded-lg p-4'>
+        <p className='text-[#1D5B4F] text-m mb-4'>Topic Distribution</p>
 
-        {Object.entries(topicCount).length === 0 ? (<p className='text-gray-500'>
+        {Object.entries(topicCount).length === 0 ? (<p className='text-gray-600'>
           No data yet
         </p>) : (
           Object.entries(topicCount).map(([topic,count]) => {
@@ -103,12 +103,12 @@ const Analytics = ({questions}) => {
             return (
               <div key={topic} className='mb-3'>
                 <div className='flex justify-between mb-1'>
-                  <span className='text-white text-sm'>{topic}</span>
-                  <span className='text-gray-400 text-sm'>{count} questions</span>
+                  <span className='text-[#023c2e] text-sm font-semibold'>{topic}</span>
+                  <span className='text-gray-700 text-sm'>{count} questions</span>
                   </div>
-                  <div className='w-full bg-gray-700 rounded-full h-2'>
+                  <div className='bg-[#0F5B48] h-1.5 rounded-full w-full'>
                     <div 
-                    className='bg-blue-500 h-2 rounded-full transition-all'
+                    className='bg-[#074334] h-2 rounded-full transition-all'
                     style={{width: `${percentage}%`}}/>
                   </div>
                 </div>
