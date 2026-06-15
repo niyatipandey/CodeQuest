@@ -89,7 +89,20 @@ const Insights = ({questions}) => {
 
   return (
     <div className='max-w-3xl mx-auto'>
-      <h1 className='text-2xl font-bold text-[#1C3D35] mb-6'>🧠 Insights</h1>
+      {questions.length < 5 ? (
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
+    <p className="text-4xl mb-3">🧠</p>
+
+    <h2 className="text-[#1C3D35] text-2xl font-semibold mb-2">
+      Insights locked
+    </h2>
+
+    <p className="text-gray-500">
+      Solve at least 5 questions to unlock insights
+    </p>
+  </div>
+
+      ):(
         <div className='grid grid-cols-2 gap-4'>
           {insightCards.map((card,index) =>(
             <div key={index} className={ `hover:bg-[#83c4a7] rounded-lg p-5 border-l-4 ${card.color}`}>
@@ -97,7 +110,8 @@ const Insights = ({questions}) => {
               <p className='text-gray-500 text-lg font-semibold'>{card.message}</p>
               </div>
           ))}
-        </div>
+        </div>)
+      }
     </div>
   )
 }
