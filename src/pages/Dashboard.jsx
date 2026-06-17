@@ -29,16 +29,21 @@ const Dashboard = ({questions,dailyGoal}) => {
 
   let streak = 0
 
-  for(let i =0 ; i< uniqueDates.length; i++){
-    const checkDate = new Date(today)
-    checkDate.setDate(today.getDate()-i)
+  if(!uniqueDates.includes(today.toLocaleDateString())){
+    today.setDate(today.getDate()-1)
+  }
 
-    if(uniqueDates.includes(checkDate.toLocaleDateString())) {
-      streak++;
+  while(true){
+    const date = today.toLocaleDateString()
+
+    if(uniqueDates.includes(date)){
+      streak++
+      today.setDate(today.getDate()-1)
     }else{
-      break;
+      break
     }
   }
+
 
   return (
     <div className='grid grid-cols-4 gap-4'>
