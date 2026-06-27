@@ -1,6 +1,6 @@
 import React from "react";
 
-const Dashboard = ({questions,dailyGoal}) => {
+const Dashboard = ({questions,dailyGoal,loading}) => {
 
   const difficultyColor = {
     Easy: "text-green-700 bg-green-100",
@@ -10,7 +10,7 @@ const Dashboard = ({questions,dailyGoal}) => {
 
   const today = new Date()
   const todayDate = today.toLocaleDateString()
-  const todaySolved = questions.filter((q)=> q.dateSolved === todayDate).length
+  const todaySolved = questions.filter((q)=> q.solvedAt === todayDate).length
 
   const totalSolved = questions.length
   const easyCount = questions.filter(q=> q.difficulty === 'Easy').length
@@ -25,7 +25,7 @@ const Dashboard = ({questions,dailyGoal}) => {
     topicCount[q.topic] = (topicCount[q.topic] || 0) +1
   });
 
-  const uniqueDates = [...new Set(questions.map((q)=>q.dateSolved))]
+  const uniqueDates = [...new Set(questions.map((q)=> new Date(q.solvedAt).toLocaleDateString()))]
 
   let streak = 0
 
@@ -42,6 +42,10 @@ const Dashboard = ({questions,dailyGoal}) => {
     }else{
       break
     }
+  }
+
+  if(loading){
+    return <p className="text-center mt-20 text-gray-500">Loading...</p>
   }
 
 
@@ -89,7 +93,7 @@ const Dashboard = ({questions,dailyGoal}) => {
         {recentQuestion.length === 0 && <div className="border border-[#d1d0cd] rounded-xl py-12 text-center mt-3 bg-white"><p className="text-center mb-2 text-[#103129]">No Recent Questions yet</p>
         <p className="text-[#103129] text-sm mt-1">Start solving to build momentum</p> </div>}
         {recentQuestion.map((q)=>{
-          return <div key={q.id} className='bg-white rounded-lg p-3 mb-2 flex justify-between items-center border border-[#d1d0cd]'>
+          return <div key={q._id} className='bg-white rounded-lg p-3 mb-2 flex justify-between items-center border border-[#d1d0cd]'>
             <div>
               <p className='text-gray-600 font-semibold'>{q.title}</p>
               <p className='text-gray-400 text-sm'>{q.topic} • {q.platform}</p>

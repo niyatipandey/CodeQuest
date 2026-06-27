@@ -16,6 +16,8 @@ const App = () => {
   const [currentSkill, setCurrentSkill] = useState("")
   const [targetSkill, setTargetSkill] = useState("")
 
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     const complete = localStorage.getItem('completedSkills')
     if(complete) setCompletedSkills(JSON.parse(complete))
@@ -52,36 +54,50 @@ const App = () => {
   const [dailyGoal, setDailyGoal] = useState(5)
 
   useEffect(() => {
-    const savedGoal = localStorage.getItem('dailyGoal')
-    if(savedGoal) setDailyGoal(Number(savedGoal))
-  }, [])
-  
-  useEffect(() => {
-    localStorage.setItem('dailyGoal' , dailyGoal)
-  }, [dailyGoal])
-  
+    const saved = localStorage.getItem('dailyGoal')
+    if(saved) setDailyGoal(Number(saved))
+}, [])
+
+useEffect(() => {
+    localStorage.setItem('dailyGoal', dailyGoal)
+}, [dailyGoal])
 
   const [activePage, setActivePage] = useState("dashboard")
 
   const [questions, setQuestions] = useState([])
 
-  const addQuestion= (questionData)=>{
-    const id = Date.now();
-    const dateSolved = new Date().toLocaleDateString()
-    const newQuestion = {...questionData,id,dateSolved}
+  const addQuestion= async (questionData)=>{
+    const res = await fetch('http://localhost:3000/question',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(questionData)
+    })
+    const newQuestion = await res.json();
     setQuestions([...questions,newQuestion])
   }
 
   useEffect(() => {
-    const saved = localStorage.getItem('questions');
-    if(saved) {
-      setQuestions(JSON.parse(saved))
-    }
-  }, [])
+    async function fetchData(){
+      setLoading(true);
+      try{
+      const res =await  fetch('http://localhost:3000/question');
+      const data = await res.json();
+      setQuestions(data);
+      }catch(err){
+        console.error("Failed to fetch error",err);
+      }finally{
+        setLoading(false);
+      }
+  } fetchData();
+  }, []);
 
-  useEffect(() => {
-    localStorage.setItem('questions',JSON.stringify(questions))
-  }, [questions])
+  const deleteQues =async (id) =>{
+    await fetch(`http://localhost:3000/question/${id}`,{
+      method:'DELETE'
+    })
+    setQuestions(questions.filter(q=> q._id !== id))
+    
+  }
 
   return (
       <div className='h-screen flex bg-[#F7F5F0]'>
@@ -91,10 +107,10 @@ const App = () => {
           <Sidebar setActivePage={setActivePage} activePage={activePage}/>
         </div>
         <div className='flex-1 bg-[#F7F5F0]text-white p-6 overflow-y-auto'>
-          {activePage === "dashboard" && <Dashboard questions={questions} dailyGoal={dailyGoal}/>}
+          {activePage === "dashboard" && <Dashboard questions={questions} dailyGoal={dailyGoal} loading={loading}/>}
           {activePage ==="analytics" && <Analytics questions={questions}/>}
           {activePage === "goals" && <Goals dailyGoal={dailyGoal} setDailyGoal={setDailyGoal} currentSkill={currentSkill} setCurrentSkill={setCurrentSkill} targetSkill={targetSkill} setTargetSkill={setTargetSkill} completedSkills={completedSkills} setCompletedSkills={setCompletedSkills}/>}
-          {activePage === "questions" && <Questions questions={questions}/>}
+          {activePage === "questions" && <Questions questions={questions} deleteQues={deleteQues} loading={loading}/>}
           {activePage === "insights" && <Insights questions={questions}/>}
           {activePage === "notes" && <Notes questions={questions}/>}
           {activePage === "addQuestions" && <AddQuestions addQuestion={addQuestion}/>}

@@ -43,11 +43,11 @@ const Insights = ({questions}) => {
 
   const todayDate = new Date()
   const today = todayDate.toLocaleDateString()
-  const consistency = questions.filter((q)=> q.dateSolved === today).length
+  const consistency = questions.filter((q)=> q.solvedAt === today).length
 
   const todayInsight = consistency === 0 ? "Not too late to be back!!" : consistency === 1 ? "1 question done — Keep going:)" : `${consistency} questions today — Push yourself better!!`
 
-  const uniqueDates = [...new Set(questions.map((q)=>q.dateSolved))]
+  const uniqueDates = [...new Set(questions.map((q)=> new Date(q.solvedAt).toLocaleDateString()))]
 
   let streak = 0
 
@@ -91,16 +91,16 @@ const Insights = ({questions}) => {
     <div className='max-w-3xl mx-auto'>
       {questions.length < 5 ? (
         <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
-    <p className="text-4xl mb-3">🧠</p>
+          <p className="text-4xl mb-3">🧠</p>
 
-    <h2 className="text-[#1C3D35] text-2xl font-semibold mb-2">
-      Insights locked
-    </h2>
+          <h2 className="text-[#1C3D35] text-2xl font-semibold mb-2">
+            Insights locked
+          </h2>
 
-    <p className="text-gray-500">
-      Solve at least 5 questions to unlock insights
-    </p>
-  </div>
+          <p className="text-gray-500">
+            Solve at least 5 questions to unlock insights
+          </p>
+        </div>
 
       ):(
         <div className='grid grid-cols-2 gap-4'>

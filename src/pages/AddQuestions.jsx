@@ -14,6 +14,7 @@ const AddQuestions = ({addQuestion}) => {
     helpTaken:"No Help",
     timeTaken:"",
     notes:"",
+    solvedAt: new Date().toISOString(),
   })
 
   const handleSubmit = ()=>{
@@ -36,7 +37,7 @@ const AddQuestions = ({addQuestion}) => {
     platform:"",
     difficulty:"",
     topic:"",
-    solved:"Yes",
+    status:"Yes",
     helpTaken:"No Help",
     timeTaken:"",
     notes:""})
