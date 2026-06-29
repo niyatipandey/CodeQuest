@@ -8,8 +8,19 @@ import Questions from './pages/Questions'
 import Insights from './pages/Insights'
 import Notes from './pages/Notes'
 import AddQuestions from './pages/AddQuestions'
+import {Routes , Route , Navigate} from 'react-router-dom'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import { TbCode } from "react-icons/tb";
 
 const App = () => {
+
+  const [token, setToken] = useState(localStorage.getItem('token'))
+
+  const getAuthHeader = ()=>({
+    'Content-type' : 'application/json',
+    'Authorization' : `Bearer ${localStorage.getItem('token')}`
+  })
 
   const [completedSkills, setCompletedSkills] = useState([])
 
@@ -69,7 +80,7 @@ useEffect(() => {
   const addQuestion= async (questionData)=>{
     const res = await fetch('http://localhost:3000/question',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:getAuthHeader(),
       body:JSON.stringify(questionData)
     })
     const newQuestion = await res.json();
@@ -78,9 +89,14 @@ useEffect(() => {
 
   useEffect(() => {
     async function fetchData(){
+      if(!token) return;
       setLoading(true);
       try{
-      const res =await  fetch('http://localhost:3000/question');
+      const res =await  fetch('http://localhost:3000/question',
+        {
+          headers:getAuthHeader()
+        }
+      );
       const data = await res.json();
       setQuestions(data);
       }catch(err){
@@ -89,20 +105,29 @@ useEffect(() => {
         setLoading(false);
       }
   } fetchData();
-  }, []);
+  }, [token]);
 
   const deleteQues =async (id) =>{
     await fetch(`http://localhost:3000/question/${id}`,{
-      method:'DELETE'
+      method:'DELETE',
+      headers:getAuthHeader()
     })
     setQuestions(questions.filter(q=> q._id !== id))
     
   }
 
   return (
-      <div className='h-screen flex bg-[#F7F5F0]'>
+    <Routes>
+      <Route path='/login' element={<Login setToken={setToken}/>}/>
+      <Route path='/register' element={<Register />}/>
+      <Route path='/' element={
+      token ? (
+        <div className='h-screen flex bg-[#F7F5F0]'>
         <div className=' flex flex-col w-60 bg-[#1C3D35]  text-white p-4 '>
-          <div className='text-xl mb-1 font-bold text-center'>CodeQuest🚀</div>
+          <div className=' flex items-center justify-center gap-1 text-xl mb-1 font-bold text-center'>
+            <TbCode className="text-[#dcebe6]" />
+            Code<span className='text-[#5df7d0]'>Quest</span>
+          </div>
           <div className='text-lg mb-7 font-semi-bold text-center text-gray-300'>Track • Learn • Grow</div>
           <Sidebar setActivePage={setActivePage} activePage={activePage}/>
         </div>
@@ -116,6 +141,10 @@ useEffect(() => {
           {activePage === "addQuestions" && <AddQuestions addQuestion={addQuestion}/>}
         </div>
       </div>
+      ) : <Navigate to='/login' />
+    }
+      />
+    </Routes>
   )
 }
 
