@@ -15,12 +15,30 @@ import { TbCode } from "react-icons/tb";
 
 const App = () => {
 
-  const [token, setToken] = useState(localStorage.getItem('token'))
-
   const getAuthHeader = ()=>({
     'Content-type' : 'application/json',
     'Authorization' : `Bearer ${localStorage.getItem('token')}`
   })
+
+  const [token, setToken] = useState(localStorage.getItem('token'))
+
+  const [user, setUser] = useState(null)
+  
+  useEffect(() => {
+    async function fetchUser(){
+      if(!token){
+        return;
+      }
+      const result = await fetch("http://localhost:3000/auth/me",{
+        headers:getAuthHeader()
+      });
+
+      const data = await result.json();
+      setUser(data);
+    }
+    fetchUser();
+  }, [token])
+  
 
   const [completedSkills, setCompletedSkills] = useState([])
 
@@ -132,7 +150,7 @@ useEffect(() => {
           <Sidebar setActivePage={setActivePage} activePage={activePage}/>
         </div>
         <div className='flex-1 bg-[#F7F5F0]text-white p-6 overflow-y-auto'>
-          {activePage === "dashboard" && <Dashboard questions={questions} dailyGoal={dailyGoal} loading={loading}/>}
+          {activePage === "dashboard" && <Dashboard questions={questions} dailyGoal={dailyGoal} loading={loading} user={user}/>}
           {activePage ==="analytics" && <Analytics questions={questions}/>}
           {activePage === "goals" && <Goals dailyGoal={dailyGoal} setDailyGoal={setDailyGoal} currentSkill={currentSkill} setCurrentSkill={setCurrentSkill} targetSkill={targetSkill} setTargetSkill={setTargetSkill} completedSkills={completedSkills} setCompletedSkills={setCompletedSkills}/>}
           {activePage === "questions" && <Questions questions={questions} deleteQues={deleteQues} loading={loading}/>}

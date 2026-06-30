@@ -1,6 +1,6 @@
 import React from "react";
 
-const Dashboard = ({questions,dailyGoal,loading}) => {
+const Dashboard = ({questions,dailyGoal,loading ,user}) => {
 
   const difficultyColor = {
     Easy: "text-green-700 bg-green-100",
@@ -10,7 +10,15 @@ const Dashboard = ({questions,dailyGoal,loading}) => {
 
   const today = new Date()
   const todayDate = today.toLocaleDateString()
-  const todaySolved = questions.filter((q)=> q.solvedAt === todayDate).length
+  const todaySolved =questions.filter((q)=>{
+    if(!q.solvedAt){
+      return false;
+    }
+    return (
+      new Date(q.solvedAt).toLocaleDateString() === todayDate
+    );
+  }).length; 
+
 
   const totalSolved = questions.length
   const easyCount = questions.filter(q=> q.difficulty === 'Easy').length
@@ -25,24 +33,7 @@ const Dashboard = ({questions,dailyGoal,loading}) => {
     topicCount[q.topic] = (topicCount[q.topic] || 0) +1
   });
 
-  const uniqueDates = [...new Set(questions.map((q)=> new Date(q.solvedAt).toLocaleDateString()))]
-
-  let streak = 0
-
-  if(!uniqueDates.includes(today.toLocaleDateString())){
-    today.setDate(today.getDate()-1)
-  }
-
-  while(true){
-    const date = today.toLocaleDateString()
-
-    if(uniqueDates.includes(date)){
-      streak++
-      today.setDate(today.getDate()-1)
-    }else{
-      break
-    }
-  }
+  const streak = user?.streak || 0;
 
   if(loading){
     return <p className="text-center mt-20 text-gray-500">Loading...</p>
