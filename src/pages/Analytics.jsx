@@ -2,44 +2,35 @@ import React from 'react'
 import { PieChart , Pie , Cell , Tooltip , Legend } from 'recharts'
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer ,CartesianGrid } from 'recharts'
 
-const Analytics = ({questions}) => {
-
-  const solveCount = questions.filter(q=> q.solved === 'Yes').length
-  const total = questions.length
-  const solveRate = total > 0 ? Math.round((solveCount/total)*100) : 0
-
-  const helpCount = questions.filter(q => q.helpTaken === 'Help Taken').length
-  const helpRate = total >0 ? Math.round((helpCount/total)*100) : 0
-
-  const topicCount = {}
-  {questions.forEach((q)=>{
-    topicCount[q.topic] = (topicCount[q.topic] || 0 ) +1
-  })}
-
-  const avgTime = total > 0 ? Math.round(
-    questions.reduce((sum,q) => sum + Number(q.timeTaken),0)/total) : 0
-
-  const helpData = [
-    { name:'No Help' , value: questions.filter((q) => q.helpTaken === 'No Help').length},
-    { name:'Help Taken' , value: questions.filter((q) => q.helpTaken === 'Help Taken').length},
-    { name:'Watched Solution' , value: questions.filter((q) => q.helpTaken === 'Watched Solution').length}
-  ]
+const Analytics = ({analytics}) => {
+  if (!analytics) {
+    return (
+      <p className="text-center text-gray-500 mt-20">
+        Loading analytics...
+      </p>
+    );
+  }
 
   const COLORS = ['#22c55e' , '#eab308' , '#ef4444']
 
+  const DIFFICULTY_COLORS = [
+    '#22c55e', 
+    '#eab308', 
+    '#ef4444' 
+  ];
+
   const solveData = [
-    {name:'Solved' , value:solveCount},
-    {name:'Unsolved', value: total-solveCount}
-  ]
+    { name: "Easy", value: analytics?.easy || 0 },
+    { name: "Medium", value: analytics?.medium || 0 },
+    { name: "Hard", value: analytics?.hard || 0 }
+  ];
 
-  const SOLVE_COLORS = ['#22c55e', '#ef4444']
-
+  const avgTime = analytics?.avgTime || 0;
 
   return (
     <div className='grid grid-cols-2 gap-4'>
       <div className='row-span-2 bg-[#EAF5F0] border border-[#C8D6D0] rounded-lg p-4'>
-        <p className='text-[#1D5B4F] text-m mb-1 font-semibold'>Solved Rate</p>
-        <p className='text-[#14804A] text-2xl font-bold mb-4'>{solveRate}%</p>
+        <p className='text-[#1D5B4F] text-m mb-1 font-semibold'>Difficulty Breakdown</p>
         <div className='rounded-lg'>
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={solveData} barSize={90} margin={{top: 5, right: 10, left: -20, bottom: 5}}>
@@ -53,7 +44,7 @@ const Analytics = ({questions}) => {
               />
               <Bar dataKey="value" radius={[6,6,0,0]}>
                 {solveData.map((entry, index) => (
-                  <Cell key={index} fill={SOLVE_COLORS[index]} />
+                  <Cell key={index} fill={DIFFICULTY_COLORS[index]} />
                 ))}
               </Bar>
             </BarChart>
@@ -65,15 +56,15 @@ const Analytics = ({questions}) => {
         <p className='text-[#1D5B4F] text-m mb-2 font-semibold'>Help Breakdown</p>
         <div className='flex items-center h-full'>
           <PieChart width={200} height={200}>
-            <Pie data={helpData} cx={100} cy={100} innerRadius={55} outerRadius={80} dataKey="value">
-              {helpData.map((entry, index) => (
+            <Pie data={(analytics?.helpBreakdown || [])} cx={100} cy={100} innerRadius={55} outerRadius={80} dataKey="value">
+              {(analytics?.helpBreakdown || []).map((entry, index) => (
                 <Cell key={index} fill={COLORS[index]} />
               ))}
             </Pie>
             <Tooltip />
           </PieChart>
           <div className='flex flex-col gap-2'>
-            {helpData.map((entry, index) => (
+            {(analytics?.helpBreakdown || []).map((entry, index) => (
               <div key={index} className='flex items-center gap-2'>
                 <div className='w-3 h-3 rounded-full' style={{backgroundColor: COLORS[index]}}/>
                 <span className='text-gray-700 text-sm'>{entry.name}</span>
@@ -93,11 +84,11 @@ const Analytics = ({questions}) => {
       <div className='col-span-2 bg-[#EAF5F0] border border-[#C8D6D0] rounded-lg p-4'>
         <p className='text-[#1D5B4F] text-m mb-4'>Topic Distribution</p>
 
-        {Object.entries(topicCount).length === 0 ? (<p className='text-gray-600'>
+        {Object.entries(analytics?.topicDistribution || {}).length === 0 ? (<p className='text-gray-600'>
           No data yet
         </p>) : (
-          Object.entries(topicCount).map(([topic,count]) => {
-            const maxCount = Math.max(...Object.values(topicCount))
+          Object.entries(analytics?.topicDistribution || {}).map(([topic,count]) => {
+            const maxCount = Math.max(...Object.values(analytics?.topicDistribution || {}))
             const percentage = Math.round((count/maxCount)*100)
 
             return (
