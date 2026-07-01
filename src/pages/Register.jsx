@@ -45,10 +45,10 @@ const Register = () => {
                 <div className='flex flex-col'>
                     <label className='font-medium text-gray-700 mb-2 text-base'>Name</label>
                     <input type="text"
-                    value={email}
+                    value={name}
                     className='border border-gray-300 rounded-lg py-3 px-4 mb-5 focus:outline-none focus:border-[#1D9E75] focus:ring-2 focus:ring-[#1D9E75]/20'
                     onChange={(e)=>{
-                        setEmail(e.target.value)
+                        setName(e.target.value)
                     }}
                     placeholder='John Doe'/>
                     <label className='font-medium text-gray-700 mb-2 text-base'>Email</label>
