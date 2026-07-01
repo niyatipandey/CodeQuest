@@ -10,7 +10,7 @@ const AddQuestions = ({addQuestion}) => {
     platform:"",
     difficulty:"",
     topic:"",
-    solved:"Solved?",
+    status:"Solved?",
     helpTaken:"No Help",
     timeTaken:"",
     notes:"",
@@ -37,7 +37,7 @@ const AddQuestions = ({addQuestion}) => {
     platform:"",
     difficulty:"",
     topic:"",
-    status:"Yes",
+    status:"unsolved",
     helpTaken:"No Help",
     timeTaken:"",
     notes:""})
@@ -111,10 +111,10 @@ const AddQuestions = ({addQuestion}) => {
       </div>
       <select className="hover:border-[#1D5B4F] w-full bg-[#d1f2e3]  text-gray-600 rounded-lg p-3 border border-[#7fb29a] focus:outline-none mb-4"
       value={formData.solved}
-      onChange={(e)=> setFormData({...formData, solved:e.target.value})}>
+      onChange={(e)=> setFormData({...formData, status:e.target.value})}>
         <option value="">Solved?</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>     
+        <option value="solved">Yes</option>
+        <option value="unsolved">No</option>     
       </select>
       <textarea className="hover:border-[#1D5B4F] w-full bg-[#d1f2e3]  text-gray-600 rounded-lg p-3 border border-[#7fb29a] focus:outline-none mb-4 h-32"
       value={formData.notes}

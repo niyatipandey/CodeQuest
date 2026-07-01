@@ -1,6 +1,7 @@
 import React from 'react'
 import { PieChart , Pie , Cell , Tooltip , Legend } from 'recharts'
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer ,CartesianGrid } from 'recharts'
+import ActivityHeatmap from '../components/ActivityHeatmap'
 
 const Analytics = ({analytics}) => {
   if (!analytics) {
@@ -30,25 +31,10 @@ const Analytics = ({analytics}) => {
   return (
     <div className='grid grid-cols-2 gap-4'>
       <div className='row-span-2 bg-[#EAF5F0] border border-[#C8D6D0] rounded-lg p-4'>
-        <p className='text-[#1D5B4F] text-m mb-1 font-semibold'>Difficulty Breakdown</p>
+        <p className='text-[#1D5B4F] text-lg mb-1 font-bold'>Problem Solving Activity</p>
+        <p className='text-gray-600 text-sm'>Last 90 Days</p>
         <div className='rounded-lg'>
-          <ResponsiveContainer width="100%" height={280}>
-            <BarChart data={solveData} barSize={90} margin={{top: 5, right: 10, left: -20, bottom: 5}}>
-              <XAxis dataKey="name" stroke='#9ca3af'/>
-              <YAxis stroke='#9ca3af' stroke='transparent' tick={{fill: '#9ca3af'}}/>
-              <Tooltip
-                contentStyle={{backgroundColor: '#F7F5F0', border: '1px solid #C8D6D0', borderRadius: '12px'}}
-                labelStyle={{color: '#184C40'}}
-                itemStyle={{color: '#184C40'}}
-                formatter={(value) => [value, 'Count']}
-              />
-              <Bar dataKey="value" radius={[6,6,0,0]}>
-                {solveData.map((entry, index) => (
-                  <Cell key={index} fill={DIFFICULTY_COLORS[index]} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+          <ActivityHeatmap activity ={analytics?.activityHeatmap || []} />
         </div>
       </div>
 
