@@ -13,6 +13,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import { TbCode } from "react-icons/tb";
 import { getAuthHeader } from './utils/api'
+import { API_URL } from './utils/api'
 
 const App = () => {
 
@@ -30,7 +31,7 @@ const App = () => {
       if(!token){
         return;
       }
-      const result = await fetch("http://localhost:3000/auth/me",{
+      const result = await fetch(`${API_URL}/auth/me`,{
         headers:getAuthHeader()
       });
 
@@ -48,7 +49,7 @@ const App = () => {
         return;
       }
       try{
-        const result = await fetch('http://localhost:3000/analytics',{
+        const result = await fetch(`${API_URL}/analytics`,{
           headers :getAuthHeader()
         })
         const data = await result.json();
@@ -72,7 +73,7 @@ const App = () => {
     }
     try{
       async function analyticsFetch(){
-          const res = await fetch('http://localhost:3000/analytics',{
+          const res = await fetch(`${API_URL}/analytics`,{
           headers: getAuthHeader()
           })
           const data = res.json();
@@ -85,7 +86,7 @@ const App = () => {
   
   
   const addQuestion= async (questionData)=>{
-    const res = await fetch('http://localhost:3000/question',{
+    const res = await fetch(`${API_URL}/question`,{
       method:'POST',
       headers:getAuthHeader(),
       body:JSON.stringify(questionData)
@@ -100,7 +101,7 @@ const App = () => {
       if(!token) return;
       setLoading(true);
       try{
-      const res =await  fetch('http://localhost:3000/question',
+      const res =await  fetch(`${API_URL}/question`,
         {
           headers:getAuthHeader()
         }
@@ -116,7 +117,7 @@ const App = () => {
   }, [token]);
 
   const deleteQues =async (id) =>{
-    await fetch(`http://localhost:3000/question/${id}`,{
+    await fetch(`${API_URL}/question/${id}`,{
       method:'DELETE',
       headers:getAuthHeader()
     })

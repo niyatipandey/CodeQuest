@@ -1,12 +1,13 @@
 import React from 'react'
 import { getAuthHeader } from '../utils/api'
+import { API_URL } from '../utils/api'
 
 const Goals = ({dailyGoal,setDailyGoal,analytics,setUser,completedSkills,setCompletedSkills}) => {
 
   const addGoal = async ()=>{
     try{
       const newGoal = dailyGoal+1;
-      const res = await fetch('http://localhost:3000/auth/me',{
+      const res = await fetch(`${API_URL}/auth/me`,{
         method:'PATCH',
         headers:getAuthHeader(),
         body: JSON.stringify({dailyGoal : newGoal})
@@ -28,7 +29,7 @@ const Goals = ({dailyGoal,setDailyGoal,analytics,setUser,completedSkills,setComp
         return;
       }
       const newGoal = dailyGoal-1;
-      const res = await fetch('http://localhost:3000/auth/me',{
+      const res = await fetch(`${API_URL}/auth/me`,{
         method:'PATCH',
         headers:getAuthHeader(),
         body: JSON.stringify({dailyGoal : newGoal})
@@ -51,7 +52,7 @@ const Goals = ({dailyGoal,setDailyGoal,analytics,setUser,completedSkills,setComp
         }else{
           updatedSkills = [...completedSkills,skill]
         }
-      const res = await fetch('http://localhost:3000/auth/me',{
+      const res = await fetch(`${API_URL}/auth/me`,{
         method:'PATCH',
         headers:getAuthHeader(),
         body: JSON.stringify({completedSkills:updatedSkills})

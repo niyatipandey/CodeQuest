@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import Background from '../assets/Background.png'
 import { TbCode } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import { API_URL } from '../utils/api'
 
 const Register = () => {
 
@@ -17,7 +18,7 @@ const Register = () => {
 
     async function registerbtn() {
         try{
-            const res = await fetch('http://localhost:3000/auth/register',{
+            const res = await fetch(`${API_URL}/auth/register`,{
                 method:'post',
                 headers:{'Content-type':'application/json'},
                 body:JSON.stringify({name,email,password:pass})

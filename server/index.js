@@ -22,8 +22,11 @@ mongoose.connect(mongo_url).then(()=>{
 
 const cors = require('cors');
 app.use(cors({
-    origin:  process.env.CLIENT_URL,
-    methods: ['GET', 'POST', 'PATCH', 'DELETE']
+  origin: [
+    "http://localhost:5173",
+    "https://code-quest-phi-six.vercel.app"
+  ],
+  methods: ["GET", "POST", "PATCH", "DELETE"],
 }));
 app.use(express.urlencoded({extended :false}));
 app.use(express.json());

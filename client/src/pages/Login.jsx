@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import { TbCode } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import Background from '../assets/Background.png'
+import { API_URL } from '../utils/api'
 
 const Login = ({setToken}) => {
 
@@ -17,7 +18,7 @@ const Login = ({setToken}) => {
         e.preventDefault();
         console.log("login clicked")
         try{
-            const result = await fetch('http://localhost:3000/auth/login',
+            const result = await fetch(`${API_URL}/auth/login`,
                 {
                     method:'post',
                     headers:{'Content-Type':'application/json'},
