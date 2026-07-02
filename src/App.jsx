@@ -19,7 +19,7 @@ const App = () => {
   const [token, setToken] = useState(localStorage.getItem('token'))
   const [user, setUser] = useState(null)
   const [analytics, setAnayltics] = useState(null)
-  const [completedSkills, setCompletedSkills] = useState([])
+  const [completedSkills, setCompletedSkills] = useState(user?.completedSkills || [])
   const [loading, setLoading] = useState(false)
   const [dailyGoal, setDailyGoal] = useState(user?.dailyGoal || 2)
   const [activePage, setActivePage] = useState("dashboard")
@@ -36,8 +36,10 @@ const App = () => {
 
       const data = await result.json();
       setUser(data);
+      setCompletedSkills(data.completedSkills || []);
     }
     fetchUser();
+
   }, [token])
 
   useEffect(() => {
@@ -64,15 +66,6 @@ const App = () => {
     }
   }, [user])
   
-  useEffect(() => {
-    const complete = localStorage.getItem('completedSkills')
-    if(complete) setCompletedSkills(JSON.parse(complete))
-  }, [])
-  
-  useEffect(() => {
-    localStorage.setItem('completedSkills',JSON.stringify(completedSkills))
-  }, [completedSkills])
-
   useEffect(() => {
     if(!token){
       return;

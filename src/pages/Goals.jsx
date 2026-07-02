@@ -43,6 +43,29 @@ const Goals = ({dailyGoal,setDailyGoal,analytics,setUser,completedSkills,setComp
       }
     }
 
+    const completedSkill = async (skill)=>{
+      try{
+        let updatedSkills;
+        if(completedSkills.includes(skill)){
+          updatedSkills = completedSkills.filter(s => s !== skill)
+        }else{
+          updatedSkills = [...completedSkills,skill]
+        }
+      const res = await fetch('http://localhost:3000/auth/me',{
+        method:'PATCH',
+        headers:getAuthHeader(),
+        body: JSON.stringify({completedSkills:updatedSkills})
+      })
+      if(res.ok){
+        setCompletedSkills(updatedSkills);
+        setUser(prev => ({...prev, completedSkills: updatedSkills}));
+      }
+      }catch(err){
+        setCompletedSkills(completedSkills);
+        console.log("Failed to update completed skills",err);
+      }
+    }
+
   const dsaTopicOrder = [
   "Arrays",           
   "Strings",          
@@ -66,14 +89,6 @@ const Goals = ({dailyGoal,setDailyGoal,analytics,setUser,completedSkills,setComp
 
   const completedCount = completedSkills.length
 
-  const toggleSkill = (topic)=>{
-    if(completedSkills.includes(topic)){
-      setCompletedSkills(completedSkills.filter((s)=>s !== topic ))
-    }else{
-      setCompletedSkills([...completedSkills,topic])
-    }
-  }
-
   return (
     <div className='grid grid-cols-2 gap-4 w-full'>
       <div className='col-span-2 bg-[#c1eed9] border border-[#909593] rounded-lg p-6 text-center'>
@@ -95,7 +110,7 @@ const Goals = ({dailyGoal,setDailyGoal,analytics,setUser,completedSkills,setComp
               return <div key={topic} className='flex items-center gap-2'>
                 <input type="checkbox" 
                 checked = {completedSkills.includes(topic)}
-                onChange={()=>toggleSkill(topic)}/>
+                onChange={()=>completedSkill(topic)}/>
                 <span className={`${color} font-medium text-sm`}>{topic} {count > 0 && `(${count})`}</span>
               </div>
           })}

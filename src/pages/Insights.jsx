@@ -41,7 +41,7 @@ const Insights = ({questions,analytics, user}) => {
   const today = todayDate.toLocaleDateString()
   const consistency = questions.filter((q)=> q.solvedAt  && new Date(q.solvedAt).toLocaleDateString() === today).length
 
-  const todayInsight = consistency === 0 ? "Not too late to be back!!" : consistency === 1 ? "1 question done — Keep going:)" : `${consistency} questions today — Push yourself better!!`
+  const todayInsight = consistency === 0 ? "Not too late to be back!!" : consistency === 1 ? "1 question done — Keep going:)" :`${consistency} questions today!! - Great going`
 
   const streak = user?.streak || 0;
 
