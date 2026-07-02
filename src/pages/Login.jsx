@@ -12,8 +12,6 @@ const Login = ({setToken}) => {
     const [error, setError] = useState("")
 
     const navigate = useNavigate();
-
-
     
     async function loginBtn(e){
         e.preventDefault();
@@ -27,7 +25,10 @@ const Login = ({setToken}) => {
                 }
             )
             const data = await result.json();
-            console.log(data);
+            if (!result.ok) {
+                setError("Login failed. Check your credentials.");
+                return;
+            }
             localStorage.setItem('token', data.token)
             setToken(data.token)
             navigate('/')

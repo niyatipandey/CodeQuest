@@ -138,7 +138,7 @@ const App = () => {
             Code<span className='text-[#5df7d0]'>Quest</span>
           </div>
           <div className='text-lg mb-7 font-semi-bold text-center text-gray-300'>Track • Learn • Grow</div>
-          <Sidebar setActivePage={setActivePage} activePage={activePage}/>
+          <Sidebar setActivePage={setActivePage} activePage={activePage} user={user} setUser={setUser} setToken={setToken}/>
         </div>
         <div className='flex-1 bg-[#F7F5F0]text-white p-6 overflow-y-auto'>
           {activePage === "dashboard" && <Dashboard questions={questions} dailyGoal={dailyGoal} loading={loading} user={user}/>}

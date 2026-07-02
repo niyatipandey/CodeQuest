@@ -39,6 +39,9 @@ const Dashboard = ({questions,dailyGoal,loading ,user}) => {
     return <p className="text-center mt-20 text-gray-500">Loading...</p>
   }
 
+  console.log(questions);
+console.log(Array.isArray(questions));
+
 
   return (
     <div className='grid grid-cols-4 gap-4'>
