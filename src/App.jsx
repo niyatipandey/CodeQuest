@@ -12,13 +12,9 @@ import {Routes , Route , Navigate} from 'react-router-dom'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import { TbCode } from "react-icons/tb";
+import { getAuthHeader } from './utils/api'
 
 const App = () => {
-
-  const getAuthHeader = ()=>({
-    'Content-type' : 'application/json',
-    'Authorization' : `Bearer ${localStorage.getItem('token')}`
-  })
 
   const [token, setToken] = useState(localStorage.getItem('token'))
   const [user, setUser] = useState(null)
@@ -27,7 +23,7 @@ const App = () => {
   const [currentSkill, setCurrentSkill] = useState("")
   const [targetSkill, setTargetSkill] = useState("")
   const [loading, setLoading] = useState(false)
-  const [dailyGoal, setDailyGoal] = useState(2)
+  const [dailyGoal, setDailyGoal] = useState(user?.dailyGoal || 2)
   const [activePage, setActivePage] = useState("dashboard")
   const [questions, setQuestions] = useState([])
   
@@ -63,8 +59,13 @@ const App = () => {
     }
     getAnalysis();
   }, [token])
-  
 
+  useEffect(() => {
+    if(user?.dailyGoal){
+      setDailyGoal(user?.dailyGoal);
+    }
+  }, [user])
+  
   useEffect(() => {
     const complete = localStorage.getItem('completedSkills')
     if(complete) setCompletedSkills(JSON.parse(complete))
@@ -95,16 +96,6 @@ const App = () => {
     localStorage.setItem('targetSkill' , targetSkill)
   }, [targetSkill])
   
-
-  useEffect(() => {
-    const saved = localStorage.getItem('dailyGoal')
-    if(saved) setDailyGoal(Number(saved))
-}, [])
-
-useEffect(() => {
-    localStorage.setItem('dailyGoal', dailyGoal)
-}, [dailyGoal])
-
   const addQuestion= async (questionData)=>{
     const res = await fetch('http://localhost:3000/question',{
       method:'POST',
@@ -162,7 +153,7 @@ useEffect(() => {
         <div className='flex-1 bg-[#F7F5F0]text-white p-6 overflow-y-auto'>
           {activePage === "dashboard" && <Dashboard questions={questions} dailyGoal={dailyGoal} loading={loading} user={user}/>}
           {activePage ==="analytics" && <Analytics analytics={analytics}/>}
-          {activePage === "goals" && <Goals dailyGoal={dailyGoal} setDailyGoal={setDailyGoal} currentSkill={currentSkill} setCurrentSkill={setCurrentSkill} targetSkill={targetSkill} setTargetSkill={setTargetSkill} completedSkills={completedSkills} setCompletedSkills={setCompletedSkills}/>}
+          {activePage === "goals" && <Goals dailyGoal={dailyGoal} setDailyGoal={setDailyGoal} setUser={setUser} currentSkill={currentSkill} setCurrentSkill={setCurrentSkill} targetSkill={targetSkill} setTargetSkill={setTargetSkill} completedSkills={completedSkills} setCompletedSkills={setCompletedSkills}/>}
           {activePage === "questions" && <Questions questions={questions} deleteQues={deleteQues} loading={loading}/>}
           {activePage === "insights" && <Insights questions={questions}/>}
           {activePage === "notes" && <Notes questions={questions}/>}

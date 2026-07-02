@@ -1,15 +1,48 @@
 import React from 'react'
+import { getAuthHeader } from '../utils/api'
 
-const Goals = ({dailyGoal,setDailyGoal,currentSkill,setCurrentSkill,targetSkill,setTargetSkill,completedSkills,setCompletedSkills}) => {
+const Goals = ({dailyGoal,setUser,setDailyGoal,currentSkill,setCurrentSkill,targetSkill,setTargetSkill,completedSkills,setCompletedSkills}) => {
+  console.log("dailyGoal prop:", dailyGoal)
 
-  const addGoal = () => {
-    setDailyGoal(dailyGoal+1)
-  }
-  const subtractGoal = () =>{
-    if(dailyGoal > 0){
-      setDailyGoal(dailyGoal -1)
+  const addGoal = async ()=>{
+    try{
+      const newGoal = dailyGoal+1;
+      const res = await fetch('http://localhost:3000/auth/me',{
+        method:'PATCH',
+        headers:getAuthHeader(),
+        body: JSON.stringify({dailyGoal : newGoal})
+      })
+      console.log(res.ok, res.status)
+      if(res.ok){
+        setDailyGoal(newGoal);
+        setUser(prev => ({...prev, dailyGoal: newGoal}));
+      }
+    }catch(err){
+      setDailyGoal(dailyGoal);
+      console.log("Failed to update Goal",err);
     }
   }
+  
+    const subtractGoal = async ()=>{
+      try{
+      if(dailyGoal <= 1){
+        return;
+      }
+      const newGoal = dailyGoal-1;
+      const res = await fetch('http://localhost:3000/auth/me',{
+        method:'PATCH',
+        headers:getAuthHeader(),
+        body: JSON.stringify({dailyGoal : newGoal})
+      })
+      if(res.ok){
+        setDailyGoal(newGoal);
+        setUser(prev => ({...prev, dailyGoal: newGoal}));
+      }
+      }catch(err){
+        setDailyGoal(dailyGoal);
+        console.log("Failed to update Goal",err);
+      }
+    }
 
   const dsaTopicOrder = [
   "Arrays",           
@@ -42,9 +75,9 @@ const Goals = ({dailyGoal,setDailyGoal,currentSkill,setCurrentSkill,targetSkill,
         <p className='text-gray-700 text-m font-semibold mb-1'>Daily Goal</p>
         <p className='text-gray-700 text-sm mb-4'>How many questions per day?</p>
         <div className='flex justify-center items-center gap-6'>
-          <button onClick={subtractGoal} className='flex items-center justify-center text-xl text-gray-300 bg-[#306558] hover:bg-[#5a9889] rounded-lg w-10 h-10 transition-all'>-</button>
+          <button onClick={subtractGoal} className='cursor-pointer flex items-center justify-center text-xl text-gray-300 bg-[#306558] hover:bg-[#5a9889] rounded-lg w-10 h-10 transition-all'>-</button>
           <p className='text-gray-700 text-4xl font-bold w-12 text-center'>{dailyGoal}</p>
-          <button onClick={addGoal} className=' flex items-center justify-center text-xl text-gray-300 bg-[#306558] hover:bg-[#5a9889] rounded-lg w-10 h-10 transition-all'>+</button>
+          <button onClick={addGoal} className='cursor-pointer flex items-center justify-center text-xl text-gray-300 bg-[#306558] hover:bg-[#5a9889] rounded-lg w-10 h-10 transition-all'>+</button>
         </div>
       </div>
       <div className='bg-[#c1eed9] border border-[#909593] rounded-lg p-4'>
