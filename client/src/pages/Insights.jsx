@@ -1,0 +1,102 @@
+import React from 'react'
+
+
+const Insights = ({questions,analytics, user}) => {
+
+  const total = questions.length
+  const avgTime = analytics?.avgTime || 0
+
+  const avgTimeInsight = avgTime > 30 ? "You're spending too long per question" : avgTime<10 ? "Solving very fast — are you sure you understand?" : "Impressive speed"
+
+  const topicCount = analytics?.topicDistribution || {}
+
+  const leastTouchedTopic = Object.entries(topicCount).sort((a,b) => a[1]- b[1])[0]?.[0]
+
+  
+  const dsaTopicOrder = [
+  "Arrays",           
+  "Strings",          
+  "Two Pointers",     
+  "Sliding Window",   
+  "Binary Search",    
+  "Linked List",      
+  "Stacks & Queues",  
+  "Trees",            
+  "Heaps",            
+  "Greedy",           
+  "Backtracking",     
+  "Graphs",           
+  "DP",               
+  "Tries"             
+  ]
+
+  const neglectedTopic = dsaTopicOrder.filter(topic => !topicCount[topic])
+  const neglectedTopicInsight = neglectedTopic.length > 0 ? `${neglectedTopic.slice(0,2).join(' and ')} need more practice` : "Great coverage of all Topics" 
+
+  const comfortTopic= Object.entries(topicCount).filter(([topic,count]) => count > 15).map(([topic])=> topic)
+
+  const comfortTopicInsight = comfortTopic.length > 0 ? `You look quite comfortable with ${comfortTopic[0]} — consider moving forward!`:null
+
+  const todayDate = new Date()
+  const today = todayDate.toLocaleDateString()
+  const consistency = questions.filter((q)=> q.solvedAt  && new Date(q.solvedAt).toLocaleDateString() === today).length
+
+  const todayInsight = consistency === 0 ? "Not too late to be back!!" : consistency === 1 ? "1 question done — Keep going:)" :`${consistency} questions today!! - Great going`
+
+  const streak = user?.streak || 0;
+
+  const consistencyInsight = streak === 0 ? "No activity today — even 1 question counts!" : streak < 3 ?  `${streak} day streak — keep going!` : streak < 7 ? `${streak} day streak — you're building a habit!`
+  : `${streak} day streak — absolute consistency!`
+
+  const hardCount = questions.filter((q)=> q.difficulty === 'Hard').length
+
+  const hardPercentage = total > 0 ? Math.round((hardCount/total)*100) : 0
+
+  const hardInsight = hardPercentage < 20 ? "You're avoiding hard questions" : "💪 Good balance of hard questions"
+
+  const watchedCount = questions.filter((q) => q.helpTaken === 'Watched Solution').length
+  const watchedPercentage = total > 0 ? Math.round((watchedCount/total)*100) : 0
+  const helpInsight = watchedPercentage > 30 ? "Too many watched solutions" : "Good independence"
+
+  const insightCards = [
+    {icon:"🔥", title: "Consistency" , message:consistencyInsight, color: "bg-[#d1f2e3]" },
+    {icon:"📅", title: "Today's Activity" , message: todayInsight, color: "bg-[#d1f2e3]" },
+    {icon:"📊", title: "Topic Coverage" , message: neglectedTopicInsight, color: "bg-[#d1f2e3]" },
+    {icon:"🎯", title: "Least Touched" , message: `Give more attention to: ${leastTouchedTopic || "N/A"}`, color: "bg-[#d1f2e3]" },
+    {icon:"⏱️", title: "Speed Analysis" , message: avgTimeInsight, color: "bg-[#d1f2e3]" },
+    {icon:"💀", title: "Difficulty Balance" , message: hardInsight, color: "bg-[#d1f2e3]" },
+    {icon:"📉", title: "Help Dependency" , message: helpInsight, color: "bg-[#d1f2e3]" },
+    comfortTopicInsight && { icon: "✅", title: "Topic Mastery", message: comfortTopicInsight, color: "bg-[#d1f2e3]" }
+  ].filter(Boolean)
+
+
+  return (
+    <div className='max-w-3xl mx-auto'>
+      {questions.length < 5 ? (
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
+          <p className="text-4xl mb-3">🧠</p>
+
+          <h2 className="text-[#1C3D35] text-2xl font-semibold mb-2">
+            Insights locked
+          </h2>
+
+          <p className="text-gray-500">
+            Solve at least 5 questions to unlock insights
+          </p>
+        </div>
+
+      ):(
+        <div className='grid grid-cols-2 gap-4'>
+          {insightCards.map((card,index) =>(
+            <div key={index} className={ `hover:bg-[#83c4a7] rounded-lg p-5 border-l-4 ${card.color}`}>
+              <p className='text-gray-700 text-sm font-bold mb-1'>{card.icon} {card.title}</p>
+              <p className='text-gray-500 text-lg font-semibold'>{card.message}</p>
+              </div>
+          ))}
+        </div>)
+      }
+    </div>
+  )
+}
+
+export default Insights
