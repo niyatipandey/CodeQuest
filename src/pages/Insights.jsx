@@ -1,18 +1,14 @@
 import React from 'react'
 
 
-const Insights = ({questions}) => {
+const Insights = ({questions,analytics, user}) => {
 
   const total = questions.length
-  const avgTime = total>0 ?   Math.round(questions.reduce((sum,q)=>{
-    return (sum + Number(q.timeTaken))},0))/total : 0
+  const avgTime = analytics?.avgTime || 0
 
   const avgTimeInsight = avgTime > 30 ? "You're spending too long per question" : avgTime<10 ? "Solving very fast — are you sure you understand?" : "Impressive speed"
 
-  const topicCount = {}
-  questions.forEach((q)=>{
-    topicCount[q.topic] = (topicCount[q.topic] || 0) +1
-  })
+  const topicCount = analytics?.topicDistribution || {}
 
   const leastTouchedTopic = Object.entries(topicCount).sort((a,b) => a[1]- b[1])[0]?.[0]
 
@@ -43,24 +39,11 @@ const Insights = ({questions}) => {
 
   const todayDate = new Date()
   const today = todayDate.toLocaleDateString()
-  const consistency = questions.filter((q)=> q.solvedAt === today).length
+  const consistency = questions.filter((q)=> q.solvedAt  && new Date(q.solvedAt).toLocaleDateString() === today).length
 
   const todayInsight = consistency === 0 ? "Not too late to be back!!" : consistency === 1 ? "1 question done — Keep going:)" : `${consistency} questions today — Push yourself better!!`
 
-  const uniqueDates = [...new Set(questions.map((q)=> new Date(q.solvedAt).toLocaleDateString()))]
-
-  let streak = 0
-
-  for(let i =0 ; i< uniqueDates.length; i++){
-    const checkDate = new Date(todayDate)
-    checkDate.setDate(todayDate.getDate()-i)
-
-    if(uniqueDates.includes(checkDate.toLocaleDateString())) {
-      streak++;
-    }else{
-      break;
-    }
-  }
+  const streak = user?.streak || 0;
 
   const consistencyInsight = streak === 0 ? "No activity today — even 1 question counts!" : streak < 3 ?  `${streak} day streak — keep going!` : streak < 7 ? `${streak} day streak — you're building a habit!`
   : `${streak} day streak — absolute consistency!`
