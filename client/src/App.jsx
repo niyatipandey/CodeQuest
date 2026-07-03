@@ -25,6 +25,7 @@ const App = () => {
   const [dailyGoal, setDailyGoal] = useState(user?.dailyGoal || 2)
   const [activePage, setActivePage] = useState("dashboard")
   const [questions, setQuestions] = useState([])
+  const [menuOpen, setMenuOpen] = useState(false)
   
   const fetchUser = async () => {
     if(!token) return;
@@ -107,15 +108,20 @@ const App = () => {
       <Route path='/' element={
       token ? (
         <div className='h-screen flex bg-[#F7F5F0]'>
-        <div className=' flex flex-col w-60 bg-[#1C3D35]  text-white p-4 '>
+        <div className={`flex flex-col w-60 bg-[#1C3D35] text-white p-4 fixed inset-y-0 left-0 z-50 transform transition-transform duration-200 md:relative md:translate-x-0 ${menuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className=' flex items-center justify-center gap-1 text-xl mb-1 font-bold text-center'>
             <TbCode className="text-[#dcebe6]" />
             Code<span className='text-[#5df7d0]'>Quest</span>
           </div>
           <div className='text-lg mb-7 font-semi-bold text-center text-gray-300'>Track • Learn • Grow</div>
-          <Sidebar setActivePage={setActivePage} activePage={activePage} user={user} setUser={setUser} setToken={setToken}/>
+          <Sidebar setActivePage={setActivePage} activePage={activePage} user={user} setUser={setUser} setToken={setToken} setMenuOpen={setMenuOpen}/>
         </div>
-        <div className='flex-1 bg-[#F7F5F0]text-white p-6 overflow-y-auto'>
+        <div className='overflow-hidden'>
+            <div className='flex-1 md:hidden flex p-2'>
+              <button onClick={() => setMenuOpen(true)} className='text-2xl text-[#1C3D35]'>☰</button>
+            </div>
+          </div>
+        <div className='flex-1 bg-[#F7F5F0] text-white p-6 overflow-y-auto'>
           {activePage === "dashboard" && <Dashboard questions={questions} dailyGoal={dailyGoal} loading={loading} user={user}/>}
           {activePage ==="analytics" && <Analytics analytics={analytics}/>}
           {activePage === "goals" && <Goals dailyGoal={dailyGoal} setDailyGoal={setDailyGoal} questions={questions}  analytics={analytics} setUser={setUser} completedSkills={completedSkills} setCompletedSkills={setCompletedSkills}/>}
@@ -124,6 +130,12 @@ const App = () => {
           {activePage === "notes" && <Notes questions={questions}/>}
           {activePage === "addQuestions" && <AddQuestions addQuestion={addQuestion}/>}
         </div>
+        {menuOpen && (
+            <div 
+                className='fixed inset-0 bg-black/50 z-40 md:hidden' 
+                onClick={() => setMenuOpen(false)}
+            />
+        )}
       </div>
       ) : <Navigate to='/login' />
     }

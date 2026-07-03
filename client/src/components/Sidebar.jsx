@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { LayoutDashboard, List, PlusCircle, Target, BarChart2, BookOpen, Lightbulb ,UserCircle2} from 'lucide-react'
 import { Link } from "react-router-dom";
 
-const Sidebar = ({setActivePage,activePage,user}) => {
+const Sidebar = ({setActivePage,activePage,user,setMenuOpen}) => {
 
     const [open, setOpen] = useState(false)
     const navigate = useNavigate()
@@ -29,6 +29,11 @@ const Sidebar = ({setActivePage,activePage,user}) => {
 
   return (
     <div className='relative h-screen flex flex-col'>
+        <button 
+            className='md:hidden self-end mb-4 text-white text-xl' 
+            onClick={() => setMenuOpen(false)}>
+            ✕
+        </button>
         {menuItems.map((item) => {
             const Icon = item.icon;
             return (
