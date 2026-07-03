@@ -44,30 +44,31 @@ console.log(Array.isArray(questions));
 
 
   return (
-    <div className='grid grid-cols-4 gap-4'>
-      <div className='bg-white border border-[#d1d0cd] rounded-xl p-5'>
-        <p className='text-gray-600 text-sm font-semibold' >Total Solved</p>
-        <p className='text-black text-5xl font-semibold mt-1'>{totalSolved}</p>
+    <div className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-5'>
+      <div className="sm:col-span-3 lg:col-span-1 bg-white border border-[#d1d0cd] rounded-2xl p-6 min-h-40 flex flex-col justify-center">
+        <p className='text-gray-600 text-xl font-semibold text-center' >Total Solved</p>
+        <p className='text-black text-6xl md:text-5xl font-semibold mt-1 text-center'>{totalSolved}</p>
       </div>
-      <div className='bg-white border border-[#d1d0cd] rounded-xl p-5'>
-        <p className='text-gray-600 text-sm font-semibold'>Easy</p>
-        <p className='text-[#1D9E75] text-5xl font-semibold mt-1'>{easyCount}</p>
+      <div className="col-span-1 sm:col-span-3 lg:col-span-3 grid grid-cols-3 gap-3">
+        <div className="bg-white border border-[#d1d0cd] rounded-2xl p-5 min-h-32 flex flex-col justify-center">
+          <p className='text-gray-600 text-xl font-semibold text-center'>Easy</p>
+          <p className='text-[#1D9E75] text-4xl md:text-5xl font-semibold mt-1 text-center'>{easyCount}</p>
+        </div>
+        <div className="bg-white border border-[#d1d0cd] rounded-2xl p-5 min-h-32 flex flex-col justify-center">
+          <p className='text-gray-600 text-xl font-semibold text-center'>Medium</p>
+          <p className='text-[#BA7517] text-4xl md:text-5xl font-semibold mt-1 text-center'>{mediumCount}</p>
+        </div>
+        <div className="bg-white border border-[#d1d0cd] rounded-2xl p-5 min-h-32 flex flex-col justify-center">
+          <p className='text-gray-600 text-xl font-semibold text-center'>Hard</p>
+          <p className='text-[#D85A30] text-4xl md:text-5xl font-semibold mt-1 text-center'>{hardCount}</p>
+        </div>
       </div>
-      <div className='bg-white border border-[#d1d0cd] rounded-xl p-5'>
-        <p className='text-gray-600 text-sm font-semibold'>Medium</p>
-        <p className='text-[#BA7517] text-5xl font-semibold mt-1'>{mediumCount}</p>
-      </div>
-      <div className='bg-white border border-[#d1d0cd] rounded-xl p-5'>
-        <p className='text-gray-600 text-sm font-semibold'>Hard</p>
-        <p className='text-[#D85A30] text-5xl font-semibold mt-1'>{hardCount}</p>
-      </div>
-      <div className='col-span-4 rounded-xl p-5
-      bg-white border border-[#d1d0cd]'>
+      <div className='col-span-1 sm:col-span-3 lg:col-span-4 rounded-2xl p-6 bg-white border border-[#d1d0cd]'>
         <p className='text-[#1D9E75] text-m font-bold'>Current Topic Focus</p>
         <p className='text-gray-600 text-2xl font-semibold mt-1'>🎯 {currentTopic || "No Topic Yet"}</p>
       </div>
 
-      <div className='col-span-2 bg-white border border-[#d1d0cd] rounded-xl p-5'>
+      <div className='col-span-1 sm:col-span-3 lg:col-span-2 bg-white border border-[#d1d0cd] rounded-2xl p-5'>
         <p className='text-[#1D9E75] text-m font-bold mb-2'>Daily Goal Progress</p>
         <p className='text-[#636464] text-lg font-semibold'>{todaySolved} / {dailyGoal} questions</p>
         {todaySolved >= dailyGoal && <span className='text-[#1D9E75] text-m font-bold'>🎉 Goal Complete!</span>}
@@ -76,18 +77,18 @@ console.log(Array.isArray(questions));
           </div>
         </div>
       </div>
-      <div className='col-span-2 bg-white border border-[#d1d0cd] rounded-xl p-5'>
+      <div className='col-span-1 sm:col-span-3 lg:col-span-2 bg-white border border-[#d1d0cd] rounded-2xl p-5'>
         <p className='text-[#1D9E75] text-m font-bold'>Current Streak</p>
-        <p className='text-[#EA580C] text-2xl font-bold mt-1'>🔥 <span className="'text-white text-3xl">{streak} </span>{streak === 1 ? "day" : "days"} Streak</p>
+        <p className='text-[#EA580C] text-2xl font-bold mt-1'>🔥 <span className="text-[#EA580C] text-3xl">{streak} </span>{streak === 1 ? "day" : "days"} Streak</p>
         {streak >= 7 && <p className='text-yellow-400 text-sm mt-1'>👑 Absolute consistency!</p>}
       </div>
 
-      <div className='col-span-4'>
+      <div className='col-span-1 sm:col-span-3 lg:col-span-4'>
         <p className='col-span-4 text-gray-600 text-2xl font-bold mt-1 mb-2'>Recent Questions</p>
-        {recentQuestion.length === 0 && <div className="border border-[#d1d0cd] rounded-xl py-12 text-center mt-3 bg-white"><p className="text-center mb-2 text-[#103129]">No Recent Questions yet</p>
+        {recentQuestion.length === 0 && <div className="border border-[#d1d0cd] rounded-2xl py-12 text-center mt-3 bg-white"><p className="text-center mb-2 text-[#103129]">No Recent Questions yet</p>
         <p className="text-[#103129] text-sm mt-1">Start solving to build momentum</p> </div>}
         {recentQuestion.map((q)=>{
-          return <div key={q._id} className='bg-white rounded-lg p-3 mb-2 flex justify-between items-center border border-[#d1d0cd]'>
+          return <div key={q._id} className='bg-white rounded-xl p-4 mb-2 flex justify-between items-center border border-[#d1d0cd] hover:shadow-md transition-all duration-300'>
             <div>
               <p className='text-gray-600 font-semibold'>{q.title}</p>
               <p className='text-gray-400 text-sm'>{q.topic} • {q.platform}</p>

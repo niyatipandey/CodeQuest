@@ -91,32 +91,33 @@ const Goals = ({dailyGoal,setDailyGoal,analytics,setUser,completedSkills,setComp
   const completedCount = completedSkills.length
 
   return (
-    <div className='grid grid-cols-2 gap-4 w-full'>
-      <div className='col-span-2 bg-[#c1eed9] border border-[#909593] rounded-lg p-6 text-center'>
+    <div className="grid grid-cols-2 gap-5 w-full px-2 sm:px-4">
+      <div className='col-span-2 bg-[#c1eed9] border border-[#909593] rounded-2xl p-6 text-center'>
         <p className='text-gray-700 text-m font-semibold mb-1'>Daily Goal</p>
         <p className='text-gray-700 text-sm mb-4'>How many questions per day?</p>
         <div className='flex justify-center items-center gap-6'>
-          <button onClick={subtractGoal} className='cursor-pointer flex items-center justify-center text-xl text-gray-300 bg-[#306558] hover:bg-[#5a9889] rounded-lg w-10 h-10 transition-all'>-</button>
-          <p className='text-gray-700 text-4xl font-bold w-12 text-center'>{dailyGoal}</p>
-          <button onClick={addGoal} className='cursor-pointer flex items-center justify-center text-xl text-gray-300 bg-[#306558] hover:bg-[#5a9889] rounded-lg w-10 h-10 transition-all'>+</button>
+          <button onClick={subtractGoal} className='cursor-pointer flex items-center justify-center text-xl text-gray-300 bg-[#306558] hover:bg-[#5a9889] rounded-lg w-12 h-12 transition-all'>-</button>
+          <p className='text-gray-700 text-5xl font-bold w-12 text-center'>{dailyGoal}</p>
+          <button onClick={addGoal} className='cursor-pointer flex items-center justify-center text-xl text-gray-300 bg-[#306558] hover:bg-[#5a9889] rounded-lg w-12 h-12 transition-all'>+</button>
         </div>
       </div>
       
-      <div className='col-span-2 bg-[#c1eed9] border border-[#909593] rounded-lg p-4'>
+      <div className='col-span-2 bg-[#c1eed9] border border-[#909593] rounded-2xl p-4'>
         <p className='text-gray-700 text-sm mb-4'>Completed Skills</p>
-        <div className=' grid grid-cols-3 gap-3'>
+        <div className=' grid grid-cols-2 sm:grid-cols-3 gap-3'>
           {dsaTopicOrder.map((topic)=>{
             const count = topicCount[topic] || 0
             const color = count >= 5 ? 'text-green-600' : count >= 1 ? 'text-yellow-600' : 'text-gray-500'
-              return <div key={topic} className='flex items-center gap-2'>
+              return <div key={topic} className="flex items-center gap-2 rounded-xl p-2 hover:bg-white/30 transition">
                 <input type="checkbox" 
                 checked = {completedSkills.includes(topic)}
-                onChange={()=>completedSkill(topic)}/>
+                onChange={()=>completedSkill(topic)}
+                className="w-4 h-4 accent-[#1D9E75]"/>
                 <span className={`${color} font-medium text-sm`}>{topic} {count > 0 && `(${count})`}</span>
               </div>
           })}
         </div>
-        <div className='flex justify-center'>
+        <div className="flex justify-center mt-6 pt-4 border-t border-[#9dd8c0]">
           <p className='text-md text-gray-800 '><span className='font-bold text-lg text-[#09201a]'>Mastered Topics :</span> {completedCount}/{totalTopic}</p>
         
         </div>

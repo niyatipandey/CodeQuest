@@ -1,6 +1,5 @@
 import React from 'react'
 import { PieChart , Pie , Cell , Tooltip , Legend } from 'recharts'
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer ,CartesianGrid } from 'recharts'
 import ActivityHeatmap from '../components/ActivityHeatmap'
 
 const Analytics = ({analytics}) => {
@@ -29,8 +28,8 @@ const Analytics = ({analytics}) => {
   const avgTime = analytics?.avgTime || 0;
 
   return (
-    <div className='grid grid-cols-2 gap-4'>
-      <div className='row-span-2 bg-[#EAF5F0] border border-[#C8D6D0] rounded-lg p-4'>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 px-2 sm:px-4">
+      <div className='sm:row-span-2 bg-[#EAF5F0] border border-[#C8D6D0] rounded-2xl p-5'>
         <p className='text-[#1D5B4F] text-lg mb-1 font-bold'>Problem Solving Activity</p>
         <p className='text-gray-600 text-sm'>Last 90 Days</p>
         <div className='rounded-lg'>
@@ -38,18 +37,18 @@ const Analytics = ({analytics}) => {
         </div>
       </div>
 
-      <div className='bg-[#EAF5F0] border border-[#C8D6D0] rounded-lg p-4 h-full'>
-        <p className='text-[#1D5B4F] text-m mb-2 font-semibold'>Help Breakdown</p>
-        <div className='flex items-center h-full'>
-          <PieChart width={200} height={200}>
-            <Pie data={(analytics?.helpBreakdown || [])} cx={100} cy={100} innerRadius={55} outerRadius={80} dataKey="value">
-              {(analytics?.helpBreakdown || []).map((entry, index) => (
-                <Cell key={index} fill={COLORS[index]} />
-              ))}
-            </Pie>
-            <Tooltip />
-          </PieChart>
-          <div className='flex flex-col gap-2'>
+      <div className='bg-[#EAF5F0] border border-[#C8D6D0] rounded-2xl p-5 h-full'>
+        <p className='text-[#1D5B4F] text-lg mb-2 font-semibold'>Help Breakdown</p>
+        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <PieChart width={200} height={200}>
+              <Pie data={(analytics?.helpBreakdown || [])} cx={100} cy={100} innerRadius={55} outerRadius={80} dataKey="value">
+                {(analytics?.helpBreakdown || []).map((entry, index) => (
+                  <Cell key={index} fill={COLORS[index]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          <div className="flex flex-col gap-2 items-center sm:items-start">
             {(analytics?.helpBreakdown || []).map((entry, index) => (
               <div key={index} className='flex items-center gap-2'>
                 <div className='w-3 h-3 rounded-full' style={{backgroundColor: COLORS[index]}}/>
@@ -60,15 +59,15 @@ const Analytics = ({analytics}) => {
         </div>
     </div>
 
-      <div className='bg-[#EAF5F0] border border-[#C8D6D0] rounded-lg p-4'>
-        <p className='text-[#1D5B4F] text-m font-semibold'>Average Time</p>
-        <p className=' text-[#184C40] text-2xl font-bold mt-2'>{avgTime} <span className='text-gray-600 text-m font-semibold'>mins</span></p>
+      <div className="bg-[#EAF5F0] border border-[#C8D6D0] rounded-2xl p-5 text-center sm:text-left">
+        <p className='text-[#1D5B4F] text-lg font-semibold'>Average Time</p>
+        <p className=' text-[#184C40] text-3xl font-bold mt-2'>{avgTime} <span className='text-gray-600 text-lg font-semibold'>mins</span></p>
         <p className='text-gray-600 text-sm mt-2'>per question</p>
         {avgTime > 0 && <p className=' text-gray-600 font-bold text-sm mt-4'>{avgTime < 15 ? "⚡ Solving fast" : avgTime < 30 ? "👍 Good pace" : "🐢 Taking your time"}</p>}
       </div>
 
-      <div className='col-span-2 bg-[#EAF5F0] border border-[#C8D6D0] rounded-lg p-4'>
-        <p className='text-[#1D5B4F] text-m mb-4'>Topic Distribution</p>
+      <div className="sm:col-span-2 bg-[#EAF5F0] border border-[#C8D6D0] rounded-2xl p-5">
+        <p className='text-[#1D5B4F] text-lg mb-4'>Topic Distribution</p>
 
         {Object.entries(analytics?.topicDistribution || {}).length === 0 ? (<p className='text-gray-600'>
           No data yet
@@ -83,7 +82,7 @@ const Analytics = ({analytics}) => {
                   <span className='text-[#023c2e] text-sm font-semibold'>{topic}</span>
                   <span className='text-gray-700 text-sm'>{count} questions</span>
                   </div>
-                  <div className='bg-[#0F5B48] h-1.5 rounded-full w-full'>
+                  <div className='bg-[#0F5B48] h-2 rounded-full w-full'>
                     <div 
                     className='bg-[#074334] h-2 rounded-full transition-all'
                     style={{width: `${percentage}%`}}/>
