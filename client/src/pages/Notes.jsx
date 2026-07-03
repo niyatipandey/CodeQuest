@@ -14,16 +14,17 @@ const Notes = ({questions}) => {
       <h1 className="text-3xl font-bold text-[#1C3D35] mb-6">Notes Vault 📓</h1>
       {notesQuestions.length === 0 && <p className='text-gray-700 text-center mt-20'>No notes yet. Add notes when solving questions!</p>}
       {notesQuestions.map((q)=>{
-        return <div key={q._id} className="bg-[#c1eed9] border border-[#909593] rounded-2xl p-5 mb-4 flex flex-col sm:flex-row justify-between gap-4 items-start hover:shadow-md transition-all duration-300">
-            <div>
-            <p className="text-[#1C3D35] text-xl font-bold sm:text-center">{q.title}</p>  
-            <p className='text-sm mt-2 text-gray-700'>{q.notes}</p>
-            </div>
-            <div className="w-full sm:w-auto text-left sm:text-right sm:min-w-[140px]">
-              <span className={`px-4 py-2 rounded-full font-semibold text-sm inline-flex justify-center items-center  ${difficultyColor[q.difficulty]}`}>{q.difficulty}</span>
-              <p className='text-lg font-bold text-[#153b3b] mt-1'>{q.topic}</p>
-            </div>
+        return <div key={q._id} className="bg-[#d1f2e3] rounded-2xl p-4 mb-3 hover:shadow-md transition-all duration-300 flex flex-col gap-2">
+          <div className="flex justify-between items-start gap-2">
+            <p className="text-[#184C40] text-lg font-medium flex-1">{q.title}</p>
+            <span className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${difficultyColor[q.difficulty]}`}>{q.difficulty}</span>
           </div>
+          <div className="h-px bg-[#a8dfc4]" />
+          <p className="text-[#3d5c52] text-sm leading-relaxed line-clamp-3">{q.notes}</p>
+          <div className="flex justify-end">
+            <span className="text-xs font-medium text-[#1a6b50] bg-[#a8dfc4] px-3 py-1 rounded-full">{q.topic}</span>
+          </div>
+        </div>
       })}
     </div>
   )

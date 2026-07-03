@@ -86,11 +86,11 @@ const Insights = ({questions,analytics, user}) => {
         </div>
 
       ):(
-        <div className='grid grid-cols-2 gap-4'>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-2 sm:px-4">
           {insightCards.map((card,index) =>(
-            <div key={index} className={ `hover:bg-[#83c4a7] rounded-lg p-5 border-l-4 ${card.color}`}>
-              <p className='text-gray-700 text-sm font-bold mb-1'>{card.icon} {card.title}</p>
-              <p className='text-gray-500 text-lg font-semibold'>{card.message}</p>
+            <div key={index} className={`rounded-2xl p-5 border border-[#C8D6D0] hover:shadow-md transition-all duration-300 ${card.color}`}>
+              <p className='text-gray-700 text-lg font-bold mb-1'>{card.icon} {card.title}</p>
+              <p className='text-gray-600 text-base font-semibold'>{card.message}</p>
               </div>
           ))}
         </div>)

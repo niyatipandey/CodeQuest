@@ -101,6 +101,20 @@ const App = () => {
     
   }
 
+  const updateQues = async (id, data) => {
+  const token = localStorage.getItem('token')
+  const res = await fetch(`/api/questions/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(data)
+  })
+  const updated = await res.json()
+  setQuestions(prev => prev.map(q => q._id === id ? updated : q))
+}
+
   return (
     <Routes>
       <Route path='/login' element={<Login setToken={setToken}/>}/>
@@ -125,7 +139,7 @@ const App = () => {
           {activePage === "dashboard" && <Dashboard questions={questions} dailyGoal={dailyGoal} loading={loading} user={user}/>}
           {activePage ==="analytics" && <Analytics analytics={analytics}/>}
           {activePage === "goals" && <Goals dailyGoal={dailyGoal} setDailyGoal={setDailyGoal} questions={questions}  analytics={analytics} setUser={setUser} completedSkills={completedSkills} setCompletedSkills={setCompletedSkills}/>}
-          {activePage === "questions" && <Questions questions={questions} deleteQues={deleteQues} loading={loading}/>}
+          {activePage === "questions" && <Questions questions={questions} deleteQues={deleteQues} loading={loading} updateQues={updateQues}/>}
           {activePage === "insights" && <Insights questions={questions} analytics={analytics} user={user}/>}
           {activePage === "notes" && <Notes questions={questions}/>}
           {activePage === "addQuestions" && <AddQuestions addQuestion={addQuestion}/>}
