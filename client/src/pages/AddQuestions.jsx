@@ -66,7 +66,7 @@ const AddQuestions = ({addQuestion}) => {
       }
       }/>
       <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-        <select className="hover:border-[#1D5B4F] w-full bg-[#d1f2e3]  text-gray-600 rounded-xl p-3 border border-[#7fb29a] focus:outline-none mb- focus:ring-2 focus:ring-[#1D9E75]4"
+        <select className="hover:border-[#1D5B4F] w-full bg-[#d1f2e3]  text-gray-600 rounded-xl p-3 border border-[#7fb29a] focus:outline-none mb-4 focus:ring-2 focus:ring-[#1D9E75]"
         value={formData.difficulty}
         onChange={(e)=> setFormData({...formData, difficulty:e.target.value})}>
           <option value="">Select Difficulty</option>

@@ -61,15 +61,39 @@ async function handleUpdateQuestion(req,res){
         return res.status(400).json({err: "id not found"});
     }
 
+    const existing = await Question.findOne({ _id: id, userId: req.user.id });
+    if (!existing) return res.status(404).json({ err: "Question not found" });
+    
+    if (req.body.status === "solved" && existing.status !== "solved") {
+    req.body.solvedAt = new Date();
+
+    const user = await User.findById(req.user.id);
+    const today = new Date();
+    const todayString = today.toISOString().split('T')[0];
+
+    if (!user.lastSolvedDate) {
+      user.streak = 1;
+    } else {
+      const lastSolved = new Date(user.lastSolvedDate).toISOString().split('T')[0];
+      if (lastSolved !== todayString) {
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        user.streak = new Date(yesterday).toISOString().split('T')[0] === lastSolved
+          ? user.streak + 1
+          : 1;
+      }
+    }
+    user.lastSolvedDate = today;
+    user.save();
+    }
+
     const result =await Question.findOneAndUpdate(
         {_id: id , userId: req.user.id},
         req.body,{
             new:true
         }
     )
-    if(!result){
-        return res.status(404).json({err:"Question not found"});
-    }
+
     return res.status(200).json(result);
 }
 
