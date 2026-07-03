@@ -26,40 +26,13 @@ const App = () => {
   const [activePage, setActivePage] = useState("dashboard")
   const [questions, setQuestions] = useState([])
   
-  useEffect(() => {
-    async function fetchUser(){
-      if(!token){
-        return;
-      }
-      const result = await fetch(`${API_URL}/auth/me`,{
-        headers:getAuthHeader()
-      });
-
-      const data = await result.json();
-      setUser(data);
-      setCompletedSkills(data.completedSkills || []);
-    }
-    fetchUser();
-
-  }, [token])
-
-  useEffect(() => {
-    async function getAnalysis(){
-      if(!token){
-        return;
-      }
-      try{
-        const result = await fetch(`${API_URL}/analytics`,{
-          headers :getAuthHeader()
-        })
-        const data = await result.json();
-        setAnayltics(data);
-      }catch(err){
-        console.error("Failed to fetch analytics", err);
-      }
-    }
-    getAnalysis();
-  }, [token])
+  const fetchUser = async () => {
+    if(!token) return;
+    const result = await fetch(`${API_URL}/auth/me`, { headers: getAuthHeader() });
+    const data = await result.json();
+    setUser(data);
+    setCompletedSkills(data.completedSkills || []);
+  }
 
   useEffect(() => {
     if(user?.dailyGoal){
@@ -67,22 +40,22 @@ const App = () => {
     }
   }, [user])
   
-  useEffect(() => {
-    if(!token){
-      return;
-    }
-    try{
-      async function analyticsFetch(){
-          const res = await fetch(`${API_URL}/analytics`,{
-          headers: getAuthHeader()
-          })
-          const data = res.json();
-          setAnayltics(data);
-        }
-      }catch(err) {
+  const fetchAnalytics = async () => {
+    if(!token) return;
+    try {
+        const result = await fetch(`${API_URL}/analytics`, { headers: getAuthHeader() });
+        const data = await result.json();
+        setAnayltics(data);
+    } catch(err) {
         console.error("Failed to fetch analytics", err);
-      }
-  })
+    }
+  }
+
+  useEffect(() => {
+    fetchUser();
+    fetchAnalytics();
+  }, [token])
+  
   
   
   const addQuestion= async (questionData)=>{
@@ -93,7 +66,8 @@ const App = () => {
     })
     const newQuestion = await res.json();
     setQuestions([...questions,newQuestion])
-    await analyticsFetch()
+    await fetchAnalytics()
+    await fetchUser();
   }
 
   useEffect(() => {
@@ -122,7 +96,7 @@ const App = () => {
       headers:getAuthHeader()
     })
     setQuestions(questions.filter(q=> q._id !== id))
-    await analyticsFetch()
+    await fetchAnalytics()
     
   }
 
