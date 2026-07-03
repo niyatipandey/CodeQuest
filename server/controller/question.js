@@ -28,18 +28,18 @@ async function handlePostQuestion(req,res){
             return res.status(404).json({ error: "User not found" });
         }
         const today = new Date();
-        const todayString = today.toLocaleDateString();
+        const todayString = today.toISOString().split('T')[0];
         
         if(!user.lastSolvedDate){
             user.streak = 1;
         }else{
-            const lastSolved = new Date(user.lastSolvedDate).toLocaleDateString();
+            const lastSolved = new Date(user.lastSolvedDate).toISOString().split('T')[0];
 
             if(lastSolved !== todayString){
                 const yesterday = new Date(today);
                 yesterday.setDate(yesterday.getDate()-1);
 
-                const yesterdayString = yesterday.toLocaleDateString();
+                const yesterdayString = yesterday.toISOString().split('T')[0];
                 if(lastSolved === yesterdayString){
                     user.streak +=1;
                 }else{
