@@ -1,81 +1,164 @@
-# CodeQuest 🚀
-### Track • Learn • Grow
+# CodeQuest
 
-A personal DSA performance dashboard that goes beyond problem counts — it tracks *how well* you're improving, where you're stuck, and what to focus on next.
-
-> Most DSA trackers count solved problems. CodeQuest measures improvement.
-
-🔗 **[Try CodeQuest Live](https://codequest-git-main-niyatipm25-7681s-projects.vercel.app/)**
+**Live Demo → [codequest-zeta-sable.vercel.app](https://code-quest-phi-six.vercel.app/)**
 
 ---
 
-## ✨ What Makes CodeQuest Different
+## Overview
 
-The **Insights Engine** — a coaching layer built on 8 detection algorithms that analyzes your solving patterns and gives you honest feedback:
-
-- Are you avoiding hard questions?
-- Are you relying too much on hints?
-- Which topics are you neglecting?
-- Is your consistency streak actually consistent?
-
-Most trackers just count. CodeQuest coaches.
+CodeQuest is a full-stack DSA tracking platform that helps developers monitor their problem-solving journey through analytics, streak tracking, progress insights, and personalized coaching metrics. It combines productivity features with data visualization to help users stay consistent and identify learning patterns.
 
 ---
 
-## 🗂️ Features
+## Highlights
 
-| Feature | Description |
+```
+✓ Full-stack MERN application
+✓ JWT authentication with bcrypt password hashing
+✓ MongoDB persistence with user-scoped data isolation
+✓ Server-side streak calculation (timezone-consistent)
+✓ 90-day activity heatmap
+✓ 7 custom insight algorithms
+✓ Interactive analytics dashboard
+✓ Responsive design — mobile + desktop
+✓ Deployed on Vercel + Render
+```
+
+---
+
+## Screenshots
+
+| Login | Dashboard |
 |---|---|
-| 📊 Dashboard | Easy/Medium/Hard breakdown, streak, daily goal progress |
-| ➕ Log Question | Track title, topic, difficulty, platform, time taken, help level |
-| 📋 History | Full question log with difficulty color coding |
-| 📈 Analytics | Solve rate, help breakdown donut, topic distribution |
-| 🧠 Insights Engine | 8 coaching algorithms — your personal DSA coach |
-| 🎯 Goals | Daily targets, skill tracking, topic completion |
-| 📓 Notes Vault | Patterns and mistakes per question, all in one place |
+| ![Login](./client//src/assets/login.png) | ![Dashboard](./client//src/assets/dashboard.png) |
+
+| Analytics | Questions |
+|---|---|
+| ![Analytics](./client//src/assets/analytics.png) | ![Questions](./client//src/assets/questions.png) |
+
+| Notes Vault | Goals |
+|---|---|
+| ![Notes](./client//src/assets/notes.png) | ![Goals](./client//src/assets/goals.png) |
 
 ---
 
-## 🛠️ Tech Stack
+## Features
 
-- **React** — component-based UI
-- **Tailwind CSS** — styling
-- **Recharts** — analytics charts (donut, bar, progress)
-- **localStorage** — client-side data persistence
-- **Vite** — build tool
-- **Vercel** — deployment
+- **Dashboard** — total solved, difficulty breakdown, daily goal progress, current streak, recent questions
+- **Question Tracker** — log questions with topic, difficulty, platform, time taken, help level, and notes
+- **Analytics** — 90-day activity heatmap, topic distribution, help breakdown, average solve time
+- **Notes Vault** — per-question notes persisted across all devices
+- **Goals** — backend-persisted daily target with topic mastery tracking
+- **Insights Engine** — 7 coaching algorithms that surface patterns in your solving behaviour
+
+### Insights Engine
+
+| Insight | What it detects |
+|---|---|
+| Consistency | Streak health and daily activity |
+| Help Dependency | Over-reliance on hints or solutions |
+| Topic Coverage | Neglected topics across the DSA roadmap |
+| Least Touched | Topics with fewest questions logged |
+| Speed Analysis | Average solve time and pace assessment |
+| Difficulty Balance | Whether hard questions are being avoided |
+| Topic Mastery | Topics with 15+ questions suggesting readiness to move on |
 
 ---
 
-## 🚀 Getting Started
+## Architecture
+
+```
+React (Vercel)
+      ↓
+Express API (Render)
+      ↓
+JWT Middleware
+      ↓
+Controllers
+      ↓
+MongoDB Atlas
+```
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React, Tailwind CSS, Recharts, React Router |
+| Backend | Node.js, Express.js |
+| Database | MongoDB, Mongoose |
+| Auth | JWT, bcryptjs |
+| Deployment | Vercel (client), Render (server) |
+
+---
+
+## Folder Structure
+
+```
+client/
+├── components/
+├── pages/
+├── utils/
+└── assets/
+
+server/
+├── controller/
+├── middleware/
+├── models/
+└── routes/
+```
+
+---
+
+## Local Setup
+
+**Prerequisites:** Node.js, MongoDB Atlas account
 
 ```bash
-git clone https://github.com/niyatipandey/CodeQuest.git
+git clone https://github.com/niyatipandey/CodeQuest
 cd CodeQuest
+```
+
+**Backend**
+```bash
+cd server
+npm install
+```
+
+Create `server/.env`:
+```
+MONGO_URL=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+PORT=3000
+```
+
+```bash
+npm start
+```
+
+**Frontend**
+```bash
+cd client
 npm install
 npm run dev
 ```
-Then open the local URL shown in your terminal.
----
 
-## 🗺️ What's Next
-
-Currently working on taking CodeQuest from a personal tool to a multi-user platform:
-
-- [ ] Backend with Node.js + Express
-- [ ] User authentication
-- [ ] Cloud data sync (replace localStorage)
-- [ ] AI-powered insights
-- [ ] Mobile responsive design
-- [ ] Spaced repetition for reattempts
+Open `http://localhost:5173`
 
 ---
 
-## 👩‍💻 Author
+## Future Scope
 
-Built by **Niyati Pandey**
-[GitHub](https://github.com/niyatipandey) · [LinkedIn](https://www.linkedin.com/in/niyati-pandey0605)
+- OAuth login (Google)
+- Email verification and password reset
+- Mobile PWA support
+- AI-powered question recommendations
+- Interview preparation mode
+- Spaced repetition for weak topics
 
 ---
 
-⭐ If you found this project interesting, consider giving it a star.
+## Author
+
+Niyati Pandey — [GitHub](https://github.com/niyatipandey)
