@@ -10,7 +10,7 @@ async function handleRegister(req,res){
         }
         const userExist =await User.findOne({email});
         if(userExist){
-            return res.status(400).json("User already registed");
+            return res.status(400).json("User already registered");
         }
         const hashedPassword =await bcrypt.hash(password,10)
 
