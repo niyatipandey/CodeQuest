@@ -45,7 +45,7 @@ const Questions = ({ questions, deleteQues, loading,updateQues }) => {
         <div className="flex justify-between items-center">
           <span className="text-xs text-[#6b7f78]">{question.helpTaken}</span>
           <div className="flex gap-2">
-            <button onClick={() => setEditingQuestion(question._id)} className="cursor-pointer text-[#6b7f78] hover:text-[#1a6b50] transition-colors"><FaEdit className="text-sm" /></button>
+            <button onClick={() => setEditingQuestion(question)} className="cursor-pointer text-[#6b7f78] hover:text-[#1a6b50] transition-colors"><FaEdit className="text-sm" /></button>
             <button onClick={() => deleteQues(question._id)} className="cursor-pointer text-[#6b7f78] hover:text-red-600 transition-colors"><FaTrash className="text-sm" /></button>
           </div>
         </div>
