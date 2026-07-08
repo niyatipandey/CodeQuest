@@ -32,11 +32,11 @@ const EditModal = ({ question, onClose, onSave }) => {
   }
 
   const handleSubmit = () => {
+    const changed ={};
     if (Object.keys(changed).length === 0) {
       onClose();
       return;
     }
-    const changed ={};
     Object.keys(form).forEach(key =>{
       if(form[key] !== question[key]) {
         changed[key] = form[key];
